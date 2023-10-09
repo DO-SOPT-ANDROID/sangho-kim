@@ -9,6 +9,7 @@ import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
+import snackBar
 import toast
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
@@ -47,9 +48,19 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
-
-            toast("${signedUser.id} & ${signedUser.pw} & ${signedUser.nickname} & ${signedUser.drink}")
-
+            if (::signedUser.isInitialized) {
+                if (signedUser.id == binding.etLoginId.text.toString() && signedUser.pw == binding.etLoginPw.text.toString()) {
+                    Intent(this, MainActivity::class.java).apply {
+                        addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                        startActivity(this)
+                    }
+                    finish()
+                } else {
+                    snackBar(binding.root.rootView) { "아이디 혹은 비밀번호가 잘못되었습니다." }
+                }
+            } else {
+                snackBar(binding.root.rootView) { "회원가입을 진행해주세요." }
+            }
         }
     }
 
