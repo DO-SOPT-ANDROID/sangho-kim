@@ -11,16 +11,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_main_thumbnail"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_main_thumbnail"
             android:layout_width="60dp"
             android:layout_height="0dp"
             android:layout_marginStart="30dp"
             android:layout_marginTop="60dp"
-            android:src="@drawable/ic_launcher_background"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_main_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher_background" />
+
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/tv_main_nickname"
@@ -29,9 +38,9 @@
             android:layout_marginStart="10dp"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/iv_main_thumbnail"
-            app:layout_constraintStart_toEndOf="@id/iv_main_thumbnail"
-            app:layout_constraintTop_toTopOf="@id/iv_main_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/cv_main_thumbnail"
+            app:layout_constraintStart_toEndOf="@id/cv_main_thumbnail"
+            app:layout_constraintTop_toTopOf="@id/cv_main_thumbnail"
             tools:text="생호" />
 
         <TextView
@@ -43,22 +52,22 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:text="전통주 스터디장 김상호입니다 반갑습니다"
-            app:layout_constraintBottom_toBottomOf="@id/iv_main_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/cv_main_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/tv_main_nickname"
-            app:layout_constraintTop_toTopOf="@id/iv_main_thumbnail" />
+            app:layout_constraintTop_toTopOf="@id/cv_main_thumbnail" />
 
         <TextView
             android:id="@+id/tv_main_id_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:text="ID"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_main_thumbnail" />
+            app:layout_constraintTop_toBottomOf="@id/cv_main_thumbnail" />
 
         <TextView
             android:id="@+id/tv_main_id"

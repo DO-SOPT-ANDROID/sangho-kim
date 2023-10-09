@@ -10,7 +10,6 @@ import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
 import snackBar
-import toast
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
