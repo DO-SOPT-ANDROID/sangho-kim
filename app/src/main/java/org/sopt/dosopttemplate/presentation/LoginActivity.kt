@@ -9,6 +9,7 @@ import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
+import toast
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
@@ -46,6 +47,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
+
+            toast("${signedUser.id} & ${signedUser.pw} & ${signedUser.nickname} & ${signedUser.drink}")
 
         }
     }

@@ -11,5 +11,3 @@ Lapp/src/main/java/org/sopt/dosopttemplate/util/base/BindingDialogFragment.kt,f
 Qapp/src/main/java/org/sopt/dosopttemplate/util/base/BindingBottomSheetFragment.kt,d/9/d967fbaddaccdba24ca1bbf6fa220171234a25be
 v
 Fapp/src/main/java/org/sopt/dosopttemplate/util/base/BindingActivity.kt,5/3/53ca1a62395a8f83ca0794797f49b9c5fcb5ceb7
-@
-app/build.gradle,f/4/f4a01d6a4fcb971362ec00a83903fd3902f52164

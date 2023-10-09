@@ -16,6 +16,7 @@ import snackBar
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
 
     private val resultIntentForLogin = Intent()
+
     private lateinit var editedId: String
     private lateinit var editedPw: String
     private lateinit var editedNickname: String
