@@ -1,12 +1,13 @@
 package org.sopt.dosopttemplate.presentation
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.util.base.BindingActivity
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
     }
 }
