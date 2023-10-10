@@ -13,6 +13,7 @@ import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.base.BindingActivity
+import org.sopt.dosopttemplate.util.intent.getParcelable
 import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
 import snackBar
 import toast
@@ -36,11 +37,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                signedUser = if (Build.VERSION.SDK_INT >= TIRAMISU) {
-                    result.data?.getParcelableExtra(EXTRA_USER, User::class.java) ?: return@registerForActivityResult
-                } else {
-                    result.data?.getParcelableExtra(EXTRA_USER) ?: return@registerForActivityResult
-                }
+                signedUser = result.data?.getParcelable(EXTRA_USER, User::class.java)?: return@registerForActivityResult
             }
         }
     }
