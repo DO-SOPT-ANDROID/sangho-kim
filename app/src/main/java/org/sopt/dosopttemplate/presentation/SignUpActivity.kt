@@ -1,7 +1,5 @@
 package org.sopt.dosopttemplate.presentation
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
@@ -31,21 +29,19 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
     }
 
-    private fun checkSignUpAvailable(editedUser: User) {
-        if (!checkLength(editedUser.id, 6, 10) || !checkLength(editedUser.pw, 8, 12)) {
+    private fun checkSignUpAvailable(user: User) {
+        if (!checkLength(user.id, 6, 10) || !checkLength(user.pw, 8, 12)) {
             snackBar(binding.root.rootView) { "아이디와 비밀번호의 길이를 확인해주세요." }
-        } else if (listOf(editedUser.nickname, editedUser.drink).any { it.isBlank() }) {
+        } else if (listOf(user.nickname, user.drink).any { it.isBlank() }) {
             snackBar(binding.root.rootView) { "모든 값을 입력해주세요." }
         } else {
-            returnToLoginActivity(editedUser)
+            returnToLoginActivity(user)
         }
     }
 
     private fun returnToLoginActivity(editedUser: User) {
-        val resultIntentForLogin = Intent().apply {
-            putExtra(EXTRA_USER, editedUser)
-        }
-        setResult(Activity.RESULT_OK, resultIntentForLogin)
+        intent.putExtra(EXTRA_USER, editedUser)
+        setResult(RESULT_OK, intent)
         finish()
     }
 

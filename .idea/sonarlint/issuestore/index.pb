@@ -7,8 +7,6 @@ n
 Lapp/src/main/java/org/sopt/dosopttemplate/util/base/BindingDialogFragment.kt,f/6/f6b1b35d851cc68f6d781a2a197ad0d5d6a69fab
 Å
 Qapp/src/main/java/org/sopt/dosopttemplate/util/base/BindingBottomSheetFragment.kt,d/9/d967fbaddaccdba24ca1bbf6fa220171234a25be
-P
- app/src/main/AndroidManifest.xml,8/c/8c55c3ccc257e5907959013f99656e4c8ec3903e
 v
 Fapp/src/main/java/org/sopt/dosopttemplate/util/base/BindingActivity.kt,5/3/53ca1a62395a8f83ca0794797f49b9c5fcb5ceb7
 t

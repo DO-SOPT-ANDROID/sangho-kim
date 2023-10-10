@@ -1,7 +1,10 @@
 package org.sopt.dosopttemplate.presentation
 
-import android.app.Activity
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.os.Build
+import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -9,7 +12,6 @@ import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.intent.getParcelableUserExtra
 import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
 import snackBar
 
@@ -30,9 +32,12 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         signUpActivityLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
-            if (result.resultCode == Activity.RESULT_OK && result.data != null) {
-                signedUser = intent.getParcelableUserExtra(EXTRA_USER)
-                    ?: return@registerForActivityResult
+            if (result.resultCode == RESULT_OK) {
+                signedUser = if (Build.VERSION.SDK_INT >= TIRAMISU) {
+                    result.data?.getParcelableExtra(EXTRA_USER, User::class.java) ?: return@registerForActivityResult
+                } else {
+                    result.data?.getParcelableExtra(EXTRA_USER) ?: return@registerForActivityResult
+                }
             }
         }
     }
@@ -40,7 +45,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun initSignUpBtnListener() {
         binding.btnSignUp.setOnSingleClickListener {
             Intent(this, SignUpActivity::class.java).apply {
-                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 signUpActivityLauncher.launch(this)
             }
         }
@@ -64,8 +68,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun startMainActivity() {
         Intent(this, MainActivity::class.java).apply {
-
-            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+            putExtra(EXTRA_USER, signedUser)
+            addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }
         finish()

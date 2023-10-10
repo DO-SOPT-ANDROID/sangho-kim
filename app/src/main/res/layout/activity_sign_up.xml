@@ -84,7 +84,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:hint="닉네임을 입력해주세요"
-            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_nickname" />
@@ -107,7 +106,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:hint="선호 주종을 입력해주세요"
-            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_drink" />
