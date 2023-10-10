@@ -1,7 +1,6 @@
 package org.sopt.dosopttemplate.presentation
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatDelegate
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
