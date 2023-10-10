@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
@@ -15,28 +16,14 @@ import snackBar
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
     private lateinit var signedUser: User
+    private lateinit var signUpActivityLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initSignUpBtnListener()
         initLoginBtnListener()
-    }
-
-    private val signUpActivityLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val data = result.data
-            if (data != null) {
-                signedUser = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    intent.getParcelableExtra(EXTRA_USER, User::class.java) ?: return@registerForActivityResult
-                } else {
-                    intent.getParcelableExtra(EXTRA_USER) ?: return@registerForActivityResult
-                }
-            }
-
-        }
+        setSignUpActivityLauncher()
     }
 
     private fun initSignUpBtnListener() {
@@ -63,6 +50,24 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 }
             } else {
                 snackBar(binding.root.rootView) { "회원가입을 진행해주세요." }
+            }
+        }
+    }
+
+    private fun setSignUpActivityLauncher() {
+        signUpActivityLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data = result.data
+                if (data != null) {
+                    signedUser = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        intent.getParcelableExtra(EXTRA_USER, User::class.java)
+                            ?: return@registerForActivityResult
+                    } else {
+                        intent.getParcelableExtra(EXTRA_USER) ?: return@registerForActivityResult
+                    }
+                }
             }
         }
     }
