@@ -2,6 +2,7 @@ package org.sopt.dosopttemplate.presentation
 
 import android.app.Activity
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.dosopttemplate.R
@@ -28,12 +29,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         if (result.resultCode == Activity.RESULT_OK) {
             val data = result.data
             if (data != null) {
-                val signedId = data.getStringExtra(EXTRA_ID) ?: ""
-                val signedPw = data.getStringExtra(EXTRA_PW) ?: ""
-                val signedNickname = data.getStringExtra(EXTRA_NICKNAME) ?: ""
-                val signedDrink = data.getStringExtra(EXTRA_DRINK) ?: ""
-                signedUser = User(signedId, signedPw, signedNickname, signedDrink)
+                signedUser = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    intent.getParcelableExtra(EXTRA_USER, User::class.java) ?: return@registerForActivityResult
+                } else {
+                    intent.getParcelableExtra(EXTRA_USER) ?: return@registerForActivityResult
+                }
             }
+
         }
     }
 
@@ -47,8 +49,10 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
+            val editedId = binding.etLoginId.text.toString()
+            val editedPw = binding.etLoginPw.text.toString()
             if (::signedUser.isInitialized) {
-                if (signedUser.id == binding.etLoginId.text.toString() && signedUser.pw == binding.etLoginPw.text.toString()) {
+                if (signedUser.id == editedId && signedUser.pw == editedPw) {
                     Intent(this, MainActivity::class.java).apply {
                         addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(this)
@@ -64,9 +68,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     companion object {
-        const val EXTRA_ID = "ID"
-        const val EXTRA_PW = "PW"
-        const val EXTRA_NICKNAME = "NICKNAME"
-        const val EXTRA_DRINK = "DRINK"
+        const val EXTRA_USER = "USER"
     }
 }
