@@ -27,21 +27,26 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 binding.etSignUpNickname.text.toString(),
                 binding.etSignUpDrink.text.toString(),
             )
-
-            if (checkLength(editedUser.id, 6, 10) && checkLength(editedUser.pw, 8, 12)) {
-                val resultIntentForLogin = Intent().apply {
-                    putExtra(EXTRA_USER, editedUser)
-                }
-                setResult(Activity.RESULT_OK, resultIntentForLogin)
-                finish()
-
-            } else if (listOf(editedUser.id, editedUser.pw, editedUser.nickname, editedUser.drink).any { it.isBlank() }) {
-                snackBar(binding.root.rootView) { "모든 값을 입력해주세요." }
-
-            } else {
-                snackBar(binding.root.rootView) { "아이디와 비밀번호의 길이를 확인해주세요." }
-            }
+            checkSignUpAvailable(editedUser)
         }
+    }
+
+    private fun checkSignUpAvailable(editedUser: User) {
+        if (!checkLength(editedUser.id, 6, 10) || !checkLength(editedUser.pw, 8, 12)) {
+            snackBar(binding.root.rootView) { "아이디와 비밀번호의 길이를 확인해주세요." }
+        } else if (listOf(editedUser.nickname, editedUser.drink).any { it.isBlank() }) {
+            snackBar(binding.root.rootView) { "모든 값을 입력해주세요." }
+        } else {
+            returnToLoginActivity(editedUser)
+        }
+    }
+
+    private fun returnToLoginActivity(editedUser: User) {
+        val resultIntentForLogin = Intent().apply {
+            putExtra(EXTRA_USER, editedUser)
+        }
+        setResult(Activity.RESULT_OK, resultIntentForLogin)
+        finish()
     }
 
     private fun checkLength(text: String, min: Int, max: Int): Boolean {
