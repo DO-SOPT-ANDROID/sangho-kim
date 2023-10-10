@@ -20,12 +20,14 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun initSignUpBtnListener() {
         binding.btnSignUp.setOnSingleClickListener {
-            val editedUser = User(
-                binding.etSignUpId.text.toString(),
-                binding.etSignUpPw.text.toString(),
-                binding.etSignUpNickname.text.toString(),
-                binding.etSignUpDrink.text.toString(),
-            )
+            val editedUser = with(binding) {
+                User(
+                    etSignUpId.text.toString(),
+                    etSignUpPw.text.toString(),
+                    etSignUpNickname.text.toString(),
+                    etSignUpDrink.text.toString(),
+                )
+            }
             checkSignUpAvailable(editedUser)
         }
     }

@@ -3,8 +3,6 @@ package org.sopt.dosopttemplate.presentation
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.os.Build
-import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -37,7 +35,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                signedUser = result.data?.getParcelable(EXTRA_USER, User::class.java)?: return@registerForActivityResult
+                signedUser = result.data?.getParcelable(EXTRA_USER, User::class.java) ?: return@registerForActivityResult
             }
         }
     }
