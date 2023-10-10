@@ -8,12 +8,14 @@ import android.os.Build.VERSION_CODES.TIRAMISU
 import android.os.Bundle
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
 import snackBar
+import toast
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
@@ -26,6 +28,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         setSignUpActivityLauncher()
         initSignUpBtnListener()
         initLoginBtnListener()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     private fun setSignUpActivityLauncher() {
@@ -53,10 +56,11 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
             if (!::signedUser.isInitialized) {
-                snackBar(binding.root.rootView) { "회원가입을 진행해주세요." }
+                snackBar(binding.root) { "회원가입을 진행해주세요." }
             } else if (!checkLoginAvailable(signedUser)) {
-                snackBar(binding.root.rootView) { "아이디 혹은 비밀번호가 잘못되었습니다." }
+                snackBar(binding.root) { "아이디 혹은 비밀번호가 잘못되었습니다." }
             } else {
+                toast("로그인에 성공했습니다.")
                 startMainActivity()
             }
         }

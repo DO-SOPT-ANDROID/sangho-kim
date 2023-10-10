@@ -1,6 +1,7 @@
 package org.sopt.dosopttemplate.presentation
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatDelegate
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
@@ -8,6 +9,7 @@ import org.sopt.dosopttemplate.presentation.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
 import snackBar
+import toast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
 
@@ -31,10 +33,11 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun checkSignUpAvailable(user: User) {
         if (!checkLength(user.id, 6, 10) || !checkLength(user.pw, 8, 12)) {
-            snackBar(binding.root.rootView) { "아이디와 비밀번호의 길이를 확인해주세요." }
+            snackBar(binding.root) { "아이디와 비밀번호의 길이를 확인해주세요." }
         } else if (listOf(user.nickname, user.drink).any { it.isBlank() }) {
-            snackBar(binding.root.rootView) { "모든 값을 입력해주세요." }
+            snackBar(binding.root) { "모든 값을 입력해주세요." }
         } else {
+            toast("회원가입에 성공했습니다.")
             returnToLoginActivity(user)
         }
     }
