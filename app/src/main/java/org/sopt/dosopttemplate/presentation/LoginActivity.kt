@@ -31,7 +31,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initSignUpBtnListener()
         initLoginBtnListener()
         initOnBackPressedListener()
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
     private fun setSignUpActivityLauncher() {
