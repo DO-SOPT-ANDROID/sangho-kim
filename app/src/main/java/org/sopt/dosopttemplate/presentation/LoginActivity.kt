@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
@@ -21,12 +22,15 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private lateinit var signedUser: User
     private lateinit var signUpActivityLauncher: ActivityResultLauncher<Intent>
 
+    private var backPressedTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setSignUpActivityLauncher()
         initSignUpBtnListener()
         initLoginBtnListener()
+        initOnBackPressedListener()
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 
@@ -35,7 +39,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                signedUser = result.data?.getParcelable(EXTRA_USER, User::class.java) ?: return@registerForActivityResult
+                signedUser = result.data?.getParcelable(EXTRA_USER, User::class.java)
+                    ?: return@registerForActivityResult
             }
         }
     }
@@ -74,7 +79,22 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         finish()
     }
 
+    private fun initOnBackPressedListener() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis() - backPressedTime >= BACK_INTERVAL) {
+                    backPressedTime = System.currentTimeMillis()
+                    toast("버튼을 한번 더 누르면 종료됩니다.")
+                } else {
+                    finish()
+                }
+            }
+        }
+        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
     companion object {
         const val EXTRA_USER = "USER"
+        const val BACK_INTERVAL = 2000
     }
 }

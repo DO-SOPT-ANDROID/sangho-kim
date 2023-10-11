@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
@@ -16,11 +17,14 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private lateinit var userData: User
 
+    private var backPressedTime: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         getUserData()
         setUiText()
+        initOnBackPressedListener()
     }
 
     private fun getUserData() {
@@ -44,5 +48,23 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             startActivity(this)
         }
         finish()
+    }
+
+    private fun initOnBackPressedListener() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis() - backPressedTime >= BACK_INTERVAL) {
+                    backPressedTime = System.currentTimeMillis()
+                    toast("버튼을 한번 더 누르면 종료됩니다.")
+                } else {
+                    finish()
+                }
+            }
+        }
+        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    companion object {
+        const val BACK_INTERVAL = 2000
     }
 }
