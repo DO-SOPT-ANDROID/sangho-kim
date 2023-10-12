@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import org.sopt.dosopttemplate.data.model.User
 
-class AuthSharedPref {
+object AuthSharedPref {
     private lateinit var authPref: SharedPreferences
     private val userGson: Gson = GsonBuilder().create()
 
@@ -21,7 +21,7 @@ class AuthSharedPref {
         authPref.edit().putString(PREF_AUTH_USER, userGson.toJson(user)).apply()
     }
 
-    fun getAuthUser() : User? {
+    fun getAuthUser(): User? {
         val user = authPref.getString(PREF_AUTH_USER, null)
         if (user.isNullOrBlank()) return null
         return userGson.fromJson(user, User::class.java)
@@ -31,8 +31,6 @@ class AuthSharedPref {
         authPref.edit().clear().apply()
     }
 
-    companion object {
-        private const val PREF_AUTH_TITLE = "AUTH_PREF"
-        private const val PREF_AUTH_USER = "AUTH_USER"
-    }
+    private const val PREF_AUTH_TITLE = "AUTH_PREF"
+    private const val PREF_AUTH_USER = "AUTH_USER"
 }

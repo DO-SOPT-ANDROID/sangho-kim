@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.data.datasource.local.AuthSharedPref
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.presentation.main.MainActivity
@@ -75,7 +76,16 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }
+        setAutoLogin()
         finish()
+    }
+
+    private fun setAutoLogin() {
+        if (binding.cbAutoLogin.isChecked) {
+            AuthSharedPref.setAuthUser(signedUser)
+        } else {
+            toast("로그인 상태 저장에 실패했습니다.")
+        }
     }
 
     private fun initOnBackPressedListener() {
