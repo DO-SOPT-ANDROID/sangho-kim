@@ -6,12 +6,14 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import org.sopt.dosopttemplate.R
+import org.sopt.dosopttemplate.data.datasource.local.AuthSharedPref
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.intent.getParcelable
+import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
 import toast
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -25,6 +27,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
         getUserData()
         setUiText()
+        initDeleteBtnListener()
         initOnBackPressedListener()
     }
 
@@ -39,6 +42,13 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             binding.tvMainDrink.text = userData.drink
         } else {
             toast("다시 로그인해주세요.")
+            returnToLoginActivity()
+        }
+    }
+
+    private fun initDeleteBtnListener() {
+        binding.btnDelete.setOnSingleClickListener {
+            AuthSharedPref.clearAuthPref()
             returnToLoginActivity()
         }
     }

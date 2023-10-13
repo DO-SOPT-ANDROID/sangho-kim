@@ -69,6 +69,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 snackBar(binding.root) { "아이디 혹은 비밀번호가 잘못되었습니다." }
             } else {
                 toast("로그인에 성공했습니다.")
+                setAutoLogin()
                 startMainActivity(signedUser)
             }
         }
@@ -84,7 +85,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }
-        setAutoLogin()
         finish()
     }
 

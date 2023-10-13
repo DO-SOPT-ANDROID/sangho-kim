@@ -31,7 +31,7 @@ object AuthSharedPref {
         authPref.edit().clear().apply()
     }
 
-    fun isLogin() : Boolean {
+    fun isLogin(): Boolean {
         return authPref.contains(PREF_AUTH_USER)
     }
 
