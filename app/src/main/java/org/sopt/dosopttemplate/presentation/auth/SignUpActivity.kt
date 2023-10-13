@@ -22,10 +22,10 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         binding.btnSignUp.setOnSingleClickListener {
             val editedUser = with(binding) {
                 User(
-                    etSignUpId.text.toString(),
-                    etSignUpPw.text.toString(),
-                    etSignUpNickname.text.toString(),
-                    etSignUpDrink.text.toString(),
+                    etSignUpId.text.toString().trim(),
+                    etSignUpPw.text.toString().trim(),
+                    etSignUpNickname.text.toString().trim(),
+                    etSignUpDrink.text.toString().trim(),
                 )
             }
             checkSignUpAvailable(editedUser)
