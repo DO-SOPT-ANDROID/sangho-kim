@@ -31,6 +31,10 @@ object AuthSharedPref {
         authPref.edit().clear().apply()
     }
 
+    fun isLogin() : Boolean {
+        return authPref.contains(PREF_AUTH_USER)
+    }
+
     private const val PREF_AUTH_TITLE = "AUTH_PREF"
     private const val PREF_AUTH_USER = "AUTH_USER"
 }

@@ -28,6 +28,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        checkAutoLogin()
         setSignUpActivityLauncher()
         initSignUpBtnListener()
         initLoginBtnListener()
@@ -42,6 +43,13 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 signedUser = result.data?.getParcelable(EXTRA_USER, User::class.java)
                     ?: return@registerForActivityResult
             }
+        }
+    }
+
+    private fun checkAutoLogin() {
+        val autoLoginedUser: User? = AuthSharedPref.getAuthUser()
+        if (AuthSharedPref.isLogin() && autoLoginedUser != null) {
+            startMainActivity(autoLoginedUser)
         }
     }
 
@@ -61,7 +69,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                 snackBar(binding.root) { "아이디 혹은 비밀번호가 잘못되었습니다." }
             } else {
                 toast("로그인에 성공했습니다.")
-                startMainActivity()
+                startMainActivity(signedUser)
             }
         }
     }
@@ -70,9 +78,9 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         return signedUser.id == binding.etLoginId.text.toString() && signedUser.pw == binding.etLoginPw.text.toString()
     }
 
-    private fun startMainActivity() {
+    private fun startMainActivity(user: User) {
         Intent(this, MainActivity::class.java).apply {
-            putExtra(EXTRA_USER, signedUser)
+            putExtra(EXTRA_USER, user)
             addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }
