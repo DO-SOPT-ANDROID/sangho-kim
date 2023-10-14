@@ -75,9 +75,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         }
     }
 
-    private fun checkLoginAvailable(signedUser: User): Boolean {
-        return signedUser.id == binding.etLoginId.text.toString() && signedUser.pw == binding.etLoginPw.text.toString()
-    }
+    private fun checkLoginAvailable(signedUser: User): Boolean =
+        signedUser.id == binding.etLoginId.text.toString() && signedUser.pw == binding.etLoginPw.text.toString()
 
     private fun startMainActivity(user: User) {
         Intent(this, MainActivity::class.java).apply {

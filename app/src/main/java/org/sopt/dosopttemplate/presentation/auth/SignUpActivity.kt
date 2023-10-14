@@ -49,7 +49,5 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         finish()
     }
 
-    private fun checkLength(text: String, min: Int, max: Int): Boolean {
-        return text.length in min..max
-    }
+    private fun checkLength(text: String, min: Int, max: Int): Boolean = text.length in min..max
 }
