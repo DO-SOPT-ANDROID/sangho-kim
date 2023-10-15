@@ -2,7 +2,10 @@
 
 ## 과제 링크 제출란
 
-ex) [1주차 도전 과제 노션 링크](https://council.busan.go.kr/council/freeboard/52658)
+🍀 과제 총정리 노션 : [Marchbreeze](https://www.notion.so/marchbreeze/Android-_-SOPT-33-ab462fbfd1bc4ed98d8857859b1d667e?pvs=4) 🍀
+
+- 1주차 심화 과제 : 액티비티 생명주기 정리 - [노션 링크](https://www.notion.so/marchbreeze/ac2f237f0933483ab6ad1c946e797251?pvs=4)
+- 1주차 도전 과제 : Intent & Intent Filter 정리 - [노션 링크](https://www.notion.so/marchbreeze/Intent-Intent-Filter-f683e98d64a54fca9e4c72add69d35ed?pvs=4)
 
 ## 템플릿 설명
 레포지터리에는 하나의 브랜치가 있습니다.

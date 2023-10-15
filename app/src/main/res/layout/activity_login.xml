@@ -39,6 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:hint="아이디를 입력해주세요."
+            android:imeOptions="actionNext"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login_id" />
@@ -61,10 +63,29 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:hint="비밀번호를 입력해주세요."
+            android:imeOptions="actionDone"
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_login_pw" />
+
+        <CheckBox
+            android:id="@+id/cb_auto_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:minWidth="35dp"
+            android:minHeight="30dp"
+            app:layout_constraintStart_toStartOf="@id/et_login_pw"
+            app:layout_constraintTop_toBottomOf="@id/et_login_pw" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="자동 로그인"
+            app:layout_constraintBottom_toBottomOf="@id/cb_auto_login"
+            app:layout_constraintStart_toEndOf="@id/cb_auto_login"
+            app:layout_constraintTop_toTopOf="@id/cb_auto_login"/>
 
         <Button
             android:id="@+id/btn_login"
