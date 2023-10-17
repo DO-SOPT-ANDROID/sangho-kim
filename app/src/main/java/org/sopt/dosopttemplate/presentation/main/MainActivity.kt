@@ -37,9 +37,11 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun setUiText() {
         if (::userData.isInitialized) {
-            binding.tvMainNickname.text = userData.nickname
-            binding.tvMainId.text = userData.id
-            binding.tvMainDrink.text = userData.drink
+            with(binding) {
+                tvMainNickname.text = userData.nickname
+                tvMainId.text = userData.id
+                tvMainDrink.text = userData.drink
+            }
         } else {
             toast("다시 로그인해주세요.")
             returnToLoginActivity()
