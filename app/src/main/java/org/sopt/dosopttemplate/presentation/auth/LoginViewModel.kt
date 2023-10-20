@@ -5,9 +5,8 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import org.sopt.dosopttemplate.data.datasource.local.AuthSharedPref
+import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.data.model.emptyUser
 import org.sopt.dosopttemplate.data.model.isUserEmpty
@@ -18,20 +17,16 @@ class LoginViewModel : ViewModel() {
     val checkLoginState: SharedFlow<AuthState>
         get() = _checkLoginState
 
-    private val _signedUser = MutableStateFlow<User>(emptyUser())
-    val signedUser: StateFlow<User> = _signedUser
-
-    private val editedUser = MutableStateFlow<User>(emptyUser())
+    private val signedUser = MutableStateFlow(emptyUser())
+    private val editedUser = MutableStateFlow(emptyUser())
 
     fun setSignedUser(user: User) {
-        _signedUser.value = user
+        signedUser.value = user
     }
 
     fun setEditedUser(user: User) {
         editedUser.value = user
     }
-
-    fun checkAutoLogin() = AuthSharedPref.isLogin() && AuthSharedPref.getAuthUser() != null
 
     fun checkLoginAvailable() {
         viewModelScope.launch {
@@ -48,6 +43,8 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun setAutoLogin() = AuthSharedPref.setAuthUser(signedUser.value)
+    fun checkAutoLogin() = UserSharedPref.isLogined() && UserSharedPref.getUserFromPref() != null
+
+    fun setAutoLogin() = UserSharedPref.setUserToPref(signedUser.value)
 
 }

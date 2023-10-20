@@ -100,7 +100,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun startMainActivity() {
         Intent(this, MainActivity::class.java).apply {
-            putExtra(EXTRA_USER, viewModel.signedUser.value)
             addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }

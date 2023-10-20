@@ -6,8 +6,9 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.datasource.local.AuthSharedPref
+import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
 import org.sopt.dosopttemplate.data.model.User
+import org.sopt.dosopttemplate.data.model.emptyUser
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
@@ -32,7 +33,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private fun getUserData() {
-        userData = intent?.getParcelable(EXTRA_USER, User::class.java) ?: return
+        userData = UserSharedPref.getUserFromPref() ?: emptyUser()
     }
 
     private fun setUiText() {
@@ -50,7 +51,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
 
     private fun initDeleteBtnListener() {
         binding.btnDelete.setOnSingleClickListener {
-            AuthSharedPref.clearAuthPref()
+            UserSharedPref.clearUserPref()
             returnToLoginActivity()
         }
     }
