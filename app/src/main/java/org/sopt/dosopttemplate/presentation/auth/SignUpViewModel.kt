@@ -12,8 +12,8 @@ import org.sopt.dosopttemplate.data.model.emptyUser
 
 class SignUpViewModel : ViewModel() {
 
-    private val _checkSignUpState = MutableSharedFlow<SignUpState>()
-    val checkSignUpState: SharedFlow<SignUpState>
+    private val _checkSignUpState = MutableSharedFlow<AuthState>()
+    val checkSignUpState: SharedFlow<AuthState>
         get() = _checkSignUpState
 
     private val _editedUser = MutableStateFlow<User>(emptyUser())
@@ -27,13 +27,13 @@ class SignUpViewModel : ViewModel() {
         val user = editedUser.value
         viewModelScope.launch {
             val signUpResult = when {
-                !checkLength(user.id, 6, 10) -> SignUpState.IdError
+                !checkLength(user.id, 6, 10) -> AuthState.IdError
 
-                !checkLength(user.pw, 8, 12) -> SignUpState.PwError
+                !checkLength(user.pw, 8, 12) -> AuthState.PwError
 
-                listOf(user.nickname, user.drink).any { it.isBlank() } -> SignUpState.EmptyError
+                listOf(user.nickname, user.drink).any { it.isBlank() } -> AuthState.EmptyError
 
-                else -> SignUpState.Success
+                else -> AuthState.Success
             }
             _checkSignUpState.emit(signUpResult)
         }

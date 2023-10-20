@@ -45,13 +45,13 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     private fun observeSignUpState() {
         viewModel.checkSignUpState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
-                is SignUpState.IdError -> snackBar(binding.root) { "아이디의 길이를 확인해주세요." }
+                is AuthState.IdError -> snackBar(binding.root) { "아이디의 길이를 확인해주세요." }
 
-                is SignUpState.PwError -> snackBar(binding.root) { "비밀번호의 길이를 확인해주세요." }
+                is AuthState.PwError -> snackBar(binding.root) { "비밀번호의 길이를 확인해주세요." }
 
-                is SignUpState.EmptyError -> snackBar(binding.root) { "모든 값을 입력해주세요." }
+                is AuthState.EmptyError -> snackBar(binding.root) { "모든 값을 입력해주세요." }
 
-                is SignUpState.Success -> {
+                is AuthState.Success -> {
                     toast("회원가입에 성공했습니다.")
                     returnToLoginActivity()
                 }
