@@ -1,6 +1,7 @@
 package org.sopt.dosopttemplate.presentation.auth
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
@@ -11,6 +12,8 @@ import snackBar
 import toast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
+
+    private val viewModel by viewModels<SignUpViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
