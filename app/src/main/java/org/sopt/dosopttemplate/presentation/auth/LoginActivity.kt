@@ -52,7 +52,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         ) { result ->
             if (result.resultCode == RESULT_OK) {
                 viewModel.setSignedUser(
-                    result.data?.getParcelable(EXTRA_USER, User::class.java) ?: emptyUser()
+                    result.data?.getParcelable(EXTRA_USER, User::class.java)
                 )
             }
         }

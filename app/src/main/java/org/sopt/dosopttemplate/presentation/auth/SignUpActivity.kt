@@ -59,7 +59,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
     private fun returnToLoginActivity() {
         intent.apply {
-            putExtra(EXTRA_USER, viewModel.editedUser.value)
+            putExtra(EXTRA_USER, viewModel.getEditedUser())
             setResult(RESULT_OK, this)
         }
         finish()

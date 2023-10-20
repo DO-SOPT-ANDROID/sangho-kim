@@ -3,7 +3,6 @@ package org.sopt.dosopttemplate.presentation.auth
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
@@ -17,25 +16,25 @@ class LoginViewModel : ViewModel() {
     val checkLoginState: SharedFlow<AuthState>
         get() = _checkLoginState
 
-    private val signedUser = MutableStateFlow(emptyUser())
-    private val editedUser = MutableStateFlow(emptyUser())
+    private var signedUser = emptyUser()
+    private var editedUser = emptyUser()
 
-    fun setSignedUser(user: User) {
-        signedUser.value = user
+    fun setSignedUser(user: User?) {
+        signedUser = user ?: return
     }
 
-    fun setEditedUser(user: User) {
-        editedUser.value = user
+    fun setEditedUser(user: User?) {
+        editedUser = user ?: return
     }
 
     fun checkLoginAvailable() {
         viewModelScope.launch {
             val loginResult = when {
-                isUserEmpty(signedUser.value) -> AuthState.EmptyError
+                isUserEmpty(signedUser) -> AuthState.EmptyError
 
-                signedUser.value.id != editedUser.value.id -> AuthState.IdError
+                signedUser.id != editedUser.id -> AuthState.IdError
 
-                signedUser.value.pw != editedUser.value.pw -> AuthState.PwError
+                signedUser.pw != editedUser.pw -> AuthState.PwError
 
                 else -> AuthState.Success
             }
@@ -45,6 +44,6 @@ class LoginViewModel : ViewModel() {
 
     fun checkAutoLogin() = UserSharedPref.isLogined() && UserSharedPref.getUserFromPref() != null
 
-    fun setAutoLogin() = UserSharedPref.setUserToPref(signedUser.value)
+    fun setAutoLogin() = UserSharedPref.setUserToPref(signedUser)
 
 }
