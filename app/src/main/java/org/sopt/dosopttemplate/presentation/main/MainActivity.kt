@@ -44,7 +44,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
                 tvMainDrink.text = userData.drink
             }
         } else {
-            toast("다시 로그인해주세요.")
+            toast(getString(R.string.login_auto_error))
             returnToLoginActivity()
         }
     }
@@ -69,7 +69,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             override fun handleOnBackPressed() {
                 if (System.currentTimeMillis() - backPressedTime >= BACK_INTERVAL) {
                     backPressedTime = System.currentTimeMillis()
-                    toast("버튼을 한번 더 누르면 종료됩니다.")
+                    toast(getString(R.string.back_btn_pressed))
                 } else {
                     finish()
                 }

@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">DO SOPT</string>
+
+    <string name="back_btn_pressed">버튼을 한번 더 누르면 종료됩니다.</string>
+
+    <string name="login_id_error">아이디가 잘못되었습니다.</string>
+    <string name="login_pw_error">비밀번호가 잘못되었습니다.</string>
+    <string name="login_empty_error">회원가입을 진행해주세요.</string>
+    <string name="login_success">로그인에 성공했습니다.</string>
+    <string name="login_auto_error">다시 로그인해주세요.</string>
+
+    <string name="login_tv_title">Welcome to SOPT</string>
+    <string name="login_tv_id_title">ID</string>
+    <string name="login_et_id_hint">아이디를 입력해주세요.</string>
+    <string name="login_tv_pw_title">PW</string>
+    <string name="login_et_pw_hint">비밀번호를 입력해주세요.</string>
+    <string name="lgin_tv_auto_login">자동 로그인</string>
+    <string name="login_btn_login">로그인</string>
+    <string name="login_btn_sign_up">회원가입</string>
+
+    <string name="sign_in_id_error">아이디의 길이를 확인해주세요.</string>
+    <string name="sign_in_pw_error">비밀번호의 길이를 확인해주세요.</string>
+    <string name="sign_in_empty_error">모든 값을 입력해주세요.</string>
+    <string name="sign_in_success">회원가입에 성공했습니다.</string>
+
+    <string name="sign_up_tv_title">회원가입</string>
+    <string name="sign_up_tv_id_title">ID</string>
+    <string name="sign_up_et_id_hint">아이디를 입력해주세요.</string>
+    <string name="sign_up_tv_pw_title">PW</string>
+    <string name="sign_up_et_pw_hint">비밀번호를 입력해주세요.</string>
+    <string name="sign_up_tv_nk_title">닉네임</string>
+    <string name="sign_up_et_nk_hint">닉네임을 입력해주세요.</string>
+    <string name="sign_up_tv_drink_title">선호 주종</string>
+    <string name="sign_up_et_drink_hint">선호 주종을 입력해주세요.</string>
+    <string name="sign_up_btn_sign_up">회원가입</string>
 </resources>    

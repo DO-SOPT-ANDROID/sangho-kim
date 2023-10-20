@@ -68,14 +68,12 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
-            viewModel.setEditedUser(
-                with(binding) {
-                    User(
-                        id = etLoginId.text.toString().trim(),
-                        pw = etLoginPw.text.toString().trim(),
-                    )
-                }
-            )
+            viewModel.setEditedUser(with(binding) {
+                User(
+                    id = etLoginId.text.toString().trim(),
+                    pw = etLoginPw.text.toString().trim(),
+                )
+            })
             viewModel.checkLoginAvailable()
         }
     }
@@ -83,14 +81,14 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     private fun observeLoginState() {
         viewModel.checkLoginState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
-                is AuthState.IdError -> snackBar(binding.root) { "아이디가 잘못되었습니다." }
+                is AuthState.IdError -> snackBar(binding.root) { getString(R.string.login_id_error) }
 
-                is AuthState.PwError -> snackBar(binding.root) { "비밀번호가 잘못되었습니다." }
+                is AuthState.PwError -> snackBar(binding.root) { getString(R.string.login_pw_error) }
 
-                is AuthState.EmptyError -> snackBar(binding.root) { "회원가입을 진행해주세요." }
+                is AuthState.EmptyError -> snackBar(binding.root) { getString(R.string.login_empty_error) }
 
                 is AuthState.Success -> {
-                    toast("로그인에 성공했습니다.")
+                    toast(getString(R.string.login_success))
                     if (binding.cbAutoLogin.isChecked) viewModel.setAutoLogin()
                     startMainActivity()
                 }
@@ -111,7 +109,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             override fun handleOnBackPressed() {
                 if (System.currentTimeMillis() - backPressedTime >= BACK_INTERVAL) {
                     backPressedTime = System.currentTimeMillis()
-                    toast("버튼을 한번 더 누르면 종료됩니다.")
+                    toast(getString(R.string.back_btn_pressed))
                 } else {
                     finish()
                 }
