@@ -2,6 +2,10 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
@@ -19,40 +23,47 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         super.onCreate(savedInstanceState)
 
         initSignUpBtnListener()
+        observeSignUpState()
     }
 
     private fun initSignUpBtnListener() {
         binding.btnSignUp.setOnSingleClickListener {
-            val editedUser = with(binding) {
-                User(
-                    etSignUpId.text.toString().trim(),
-                    etSignUpPw.text.toString().trim(),
-                    etSignUpNickname.text.toString().trim(),
-                    etSignUpDrink.text.toString().trim(),
-                )
+            viewModel.setEditedUser(
+                with(binding) {
+                    User(
+                        etSignUpId.text.toString().trim(),
+                        etSignUpPw.text.toString().trim(),
+                        etSignUpNickname.text.toString().trim(),
+                        etSignUpDrink.text.toString().trim(),
+                    )
+                }
+            )
+            viewModel.checkSignUpAvailable()
+        }
+    }
+
+    private fun observeSignUpState() {
+        viewModel.checkSignUpState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is SignUpState.IdError -> snackBar(binding.root) { "아이디의 길이를 확인해주세요." }
+
+                is SignUpState.PwError -> snackBar(binding.root) { "비밀번호의 길이를 확인해주세요." }
+
+                is SignUpState.EmptyError -> snackBar(binding.root) { "모든 값을 입력해주세요." }
+
+                is SignUpState.Success -> {
+                    toast("회원가입에 성공했습니다.")
+                    returnToLoginActivity()
+                }
             }
-            checkSignUpAvailable(editedUser)
-        }
+        }.launchIn(lifecycleScope)
     }
 
-    private fun checkSignUpAvailable(user: User) {
-        if (!checkLength(user.id, 6, 10) || !checkLength(user.pw, 8, 12)) {
-            snackBar(binding.root) { "아이디와 비밀번호의 길이를 확인해주세요." }
-        } else if (listOf(user.nickname, user.drink).any { it.isBlank() }) {
-            snackBar(binding.root) { "모든 값을 입력해주세요." }
-        } else {
-            toast("회원가입에 성공했습니다.")
-            returnToLoginActivity(user)
-        }
-    }
-
-    private fun returnToLoginActivity(editedUser: User) {
+    private fun returnToLoginActivity() {
         intent.apply {
-            putExtra(EXTRA_USER, editedUser)
+            putExtra(EXTRA_USER, viewModel.editedUser.value)
             setResult(RESULT_OK, this)
         }
         finish()
     }
-
-    private fun checkLength(text: String, min: Int, max: Int): Boolean = text.length in min..max
 }

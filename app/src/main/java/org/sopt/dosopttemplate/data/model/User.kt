@@ -10,3 +10,7 @@ data class User(
     val nickname: String,
     val drink: String
 ) : Parcelable
+
+fun emptyUser(): User {
+    return User("", "", "", "")
+}
