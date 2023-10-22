@@ -18,7 +18,7 @@ object UserSharedPref {
     }
 
     fun setUserToPref(user: User) {
-        userPref.edit().putString(PREF_USER, userGson.toJson(user)).apply()
+        userPref.edit().putString(PREF_USER, userGson.toJson(user)).commit()
     }
 
     fun getUserFromPref(): User? {

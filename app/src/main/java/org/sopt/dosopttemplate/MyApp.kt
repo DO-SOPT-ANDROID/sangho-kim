@@ -10,8 +10,20 @@ class MyApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        initTimber()
+        initUserPreference()
+        setDayMode()
+    }
+
+    private fun initTimber() {
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
+    }
+
+    private fun initUserPreference() {
         UserSharedPref.initPref(this)
+    }
+
+    private fun setDayMode() {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
     }
 

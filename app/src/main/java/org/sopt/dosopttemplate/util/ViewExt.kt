@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.util.view
+package org.sopt.dosopttemplate.util
 
 import android.content.Context
 import android.util.TypedValue

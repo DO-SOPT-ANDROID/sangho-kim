@@ -11,7 +11,7 @@ import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import snackBar
 import toast
 

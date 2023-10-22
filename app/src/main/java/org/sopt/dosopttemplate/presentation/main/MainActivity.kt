@@ -11,10 +11,8 @@ import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.data.model.emptyUser
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
-import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.intent.getParcelable
-import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import toast
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
