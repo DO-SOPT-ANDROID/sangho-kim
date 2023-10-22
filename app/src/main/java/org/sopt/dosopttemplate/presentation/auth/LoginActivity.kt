@@ -7,49 +7,53 @@ import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.datasource.local.AuthSharedPref
 import org.sopt.dosopttemplate.data.model.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.presentation.main.MainActivity
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.intent.getParcelable
-import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.getParcelable
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import snackBar
 import toast
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
 
-    private lateinit var signedUser: User
+    private val viewModel by viewModels<LoginViewModel>()
+
     private lateinit var signUpActivityLauncher: ActivityResultLauncher<Intent>
 
     private var backPressedTime: Long = 0
 
+    override fun onStart() {
+        super.onStart()
+        if (viewModel.checkAutoLogin()) startMainActivity()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        checkAutoLogin()
-        setSignUpActivityLauncher()
+        initSignUpActivityLauncher()
         initSignUpBtnListener()
         initLoginBtnListener()
         initOnBackPressedListener()
+        observeLoginState()
     }
 
-    private fun setSignUpActivityLauncher() {
+    private fun initSignUpActivityLauncher() {
         signUpActivityLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             if (result.resultCode == RESULT_OK) {
-                signedUser = result.data?.getParcelable(EXTRA_USER, User::class.java)
-                    ?: return@registerForActivityResult
+                viewModel.setSignedUser(
+                    result.data?.getParcelable(EXTRA_USER, User::class.java)
+                )
             }
-        }
-    }
-
-    private fun checkAutoLogin() {
-        val autoLoginedUser: User? = AuthSharedPref.getAuthUser()
-        if (AuthSharedPref.isLogin() && autoLoginedUser != null) {
-            startMainActivity(autoLoginedUser)
         }
     }
 
@@ -63,36 +67,40 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
     private fun initLoginBtnListener() {
         binding.btnLogin.setOnSingleClickListener {
-            if (!::signedUser.isInitialized) {
-                snackBar(binding.root) { "회원가입을 진행해주세요." }
-            } else if (!checkLoginAvailable(signedUser)) {
-                snackBar(binding.root) { "아이디 혹은 비밀번호가 잘못되었습니다." }
-            } else {
-                toast("로그인에 성공했습니다.")
-                setAutoLogin()
-                startMainActivity(signedUser)
-            }
+            viewModel.setEditedUser(with(binding) {
+                User(
+                    id = etLoginId.text.toString().trim(),
+                    pw = etLoginPw.text.toString().trim(),
+                )
+            })
+            viewModel.checkLoginAvailable()
         }
     }
 
-    private fun checkLoginAvailable(signedUser: User): Boolean =
-        signedUser.id == binding.etLoginId.text.toString() && signedUser.pw == binding.etLoginPw.text.toString()
+    private fun observeLoginState() {
+        viewModel.checkLoginState.flowWithLifecycle(lifecycle).onEach { state ->
+            when (state) {
+                is AuthState.IdError -> snackBar(binding.root) { getString(R.string.login_id_error) }
 
-    private fun startMainActivity(user: User) {
+                is AuthState.PwError -> snackBar(binding.root) { getString(R.string.login_pw_error) }
+
+                is AuthState.EmptyError -> snackBar(binding.root) { getString(R.string.login_empty_error) }
+
+                is AuthState.Success -> {
+                    toast(getString(R.string.login_success))
+                    if (binding.cbAutoLogin.isChecked) viewModel.setAutoLogin()
+                    startMainActivity()
+                }
+            }
+        }.launchIn(lifecycleScope)
+    }
+
+    private fun startMainActivity() {
         Intent(this, MainActivity::class.java).apply {
-            putExtra(EXTRA_USER, user)
             addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }
         finish()
-    }
-
-    private fun setAutoLogin() {
-        if (binding.cbAutoLogin.isChecked) {
-            AuthSharedPref.setAuthUser(signedUser)
-        } else {
-            toast("로그인 상태 저장에 실패했습니다.")
-        }
     }
 
     private fun initOnBackPressedListener() {
@@ -100,7 +108,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
             override fun handleOnBackPressed() {
                 if (System.currentTimeMillis() - backPressedTime >= BACK_INTERVAL) {
                     backPressedTime = System.currentTimeMillis()
-                    toast("버튼을 한번 더 누르면 종료됩니다.")
+                    toast(getString(R.string.back_btn_pressed))
                 } else {
                     finish()
                 }

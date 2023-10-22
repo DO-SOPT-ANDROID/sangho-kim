@@ -6,14 +6,13 @@ import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.datasource.local.AuthSharedPref
+import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
 import org.sopt.dosopttemplate.data.model.User
+import org.sopt.dosopttemplate.data.model.emptyUser
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
-import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.intent.getParcelable
-import org.sopt.dosopttemplate.util.view.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.setOnSingleClickListener
 import toast
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
@@ -32,23 +31,25 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
     }
 
     private fun getUserData() {
-        userData = intent?.getParcelable(EXTRA_USER, User::class.java) ?: return
+        userData = UserSharedPref.getUserFromPref() ?: emptyUser()
     }
 
     private fun setUiText() {
         if (::userData.isInitialized) {
-            binding.tvMainNickname.text = userData.nickname
-            binding.tvMainId.text = userData.id
-            binding.tvMainDrink.text = userData.drink
+            with(binding) {
+                tvMainNickname.text = userData.nickname
+                tvMainId.text = userData.id
+                tvMainDrink.text = userData.drink
+            }
         } else {
-            toast("다시 로그인해주세요.")
+            toast(getString(R.string.login_auto_error))
             returnToLoginActivity()
         }
     }
 
     private fun initDeleteBtnListener() {
         binding.btnDelete.setOnSingleClickListener {
-            AuthSharedPref.clearAuthPref()
+            UserSharedPref.clearUserPref()
             returnToLoginActivity()
         }
     }
@@ -66,7 +67,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             override fun handleOnBackPressed() {
                 if (System.currentTimeMillis() - backPressedTime >= BACK_INTERVAL) {
                     backPressedTime = System.currentTimeMillis()
-                    toast("버튼을 한번 더 누르면 종료됩니다.")
+                    toast(getString(R.string.back_btn_pressed))
                 } else {
                     finish()
                 }
