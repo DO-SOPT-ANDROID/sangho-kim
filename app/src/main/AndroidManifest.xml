@@ -27,10 +27,8 @@
             android:exported="false" />
         <activity
             android:name=".presentation.main.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".presentation.main.HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

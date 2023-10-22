@@ -8,11 +8,15 @@ data class User(
     val id: String,
     val pw: String,
     val nickname: String = "",
-    val drink: String = ""
+    val drink: String = "",
+    val description: String? = "",
+    val musicArtist: String? = "",
+    val musicTitle: String? = "",
+    val isBirthday: Boolean = false
 ) : Parcelable
 
 fun emptyUser(): User {
-    return User("", "", "", "")
+    return User(id = "", pw = "")
 }
 
 fun isUserEmpty(user: User) =

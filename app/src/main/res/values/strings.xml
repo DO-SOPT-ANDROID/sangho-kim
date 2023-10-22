@@ -7,7 +7,6 @@
     <string name="login_pw_error">비밀번호가 잘못되었습니다.</string>
     <string name="login_empty_error">회원가입을 진행해주세요.</string>
     <string name="login_success">로그인에 성공했습니다.</string>
-    <string name="login_auto_error">다시 로그인해주세요.</string>
 
     <string name="login_tv_title">Welcome to SOPT</string>
     <string name="login_tv_id_title">ID</string>
@@ -33,6 +32,8 @@
     <string name="sign_up_tv_drink_title">선호 주종</string>
     <string name="sign_up_et_drink_hint">선호 주종을 입력해주세요.</string>
     <string name="sign_up_btn_sign_up">회원가입</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="profile_tv_id_title">ID</string>
+    <string name="profile_tv_drink_title">선호 주종</string>
+    <string name="profile_btn_delete">회원 탈퇴</string>
 </resources>    
