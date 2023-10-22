@@ -1,6 +1,7 @@
 package org.sopt.dosopttemplate.presentation.main
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -10,19 +11,38 @@ import org.sopt.dosopttemplate.presentation.main.android.AndroidFragment
 import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
 import org.sopt.dosopttemplate.presentation.main.profile.ProfileFragment
 import org.sopt.dosopttemplate.util.base.BindingActivity
+import org.sopt.dosopttemplate.util.toast
+import toast
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
+
+    private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initBnvFirstMenu()
+        initOnBackPressedListener()
         initBnvItemSelectedListener()
     }
 
     private fun initBnvFirstMenu() {
         supportFragmentManager.findFragmentById(R.id.fcv_main) ?: navigateTo<HomeFragment>()
         binding.bnvMain.selectedItemId = R.id.menu_home
+    }
+
+    private fun initOnBackPressedListener() {
+        val onBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (System.currentTimeMillis() - backPressedTime >= BACK_INTERVAL) {
+                    backPressedTime = System.currentTimeMillis()
+                    toast(getString(R.string.back_btn_pressed))
+                } else {
+                    finish()
+                }
+            }
+        }
+        this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
     }
 
     private fun initBnvItemSelectedListener() {
@@ -41,5 +61,9 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
         supportFragmentManager.commit {
             replace<T>(R.id.fcv_main, T::class.java.canonicalName)
         }
+    }
+
+    companion object {
+        const val BACK_INTERVAL = 2000
     }
 }
