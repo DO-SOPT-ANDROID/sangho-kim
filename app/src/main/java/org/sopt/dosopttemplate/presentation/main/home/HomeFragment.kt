@@ -28,7 +28,9 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
     private fun initAdapter() {
         _adapter = HomeAdapter(requireContext()) {
-            Timber.d("good")
+            DescriptFixBottomSheet().show(
+                parentFragmentManager, FIX_BOTTOM_SHEET
+            )
         }
         binding.rvHome.adapter = adapter
     }
@@ -36,5 +38,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private fun setListData() {
         adapter.addList(mutableListOf(viewModel.getMyUserInfo()))
         adapter.addList(mockList)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _adapter = null
+    }
+
+    private companion object {
+        const val FIX_BOTTOM_SHEET = "fixBottomSheet"
     }
 }

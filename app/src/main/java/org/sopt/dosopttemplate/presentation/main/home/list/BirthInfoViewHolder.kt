@@ -12,7 +12,7 @@ class BirthInfoViewHolder(
         with(binding) {
             ivHomeBirthThumbnail.load(item.thumbnail)
             tvHomeBirthNickname.text = item.nickname
-            tvHomeBirthDescription.text = "-  " + item.birthDate
+            tvHomeBirthDescription.text = "오늘 " + item.birthDate
         }
     }
 }
