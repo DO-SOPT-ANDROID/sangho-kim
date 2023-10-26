@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="16dp"
             android:paddingStart="24dp"
-            android:text="술친구 리스트"
+            android:text="@string/my_info_tv_title"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -74,13 +74,13 @@
             android:layout_marginEnd="4dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="전통주 스터디장의 주량은 반병입니다"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/cv_home_my_thumbnail"
             app:layout_constraintEnd_toStartOf="@id/btn_description_change"
             app:layout_constraintStart_toEndOf="@id/cv_home_my_thumbnail"
             app:layout_constraintTop_toBottomOf="@id/tv_home_my_nickname"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="전통주 스터디장의 주량은 반병입니다" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/btn_description_change"
@@ -111,7 +111,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="소개 변경"
+                android:text="@string/my_info_btn_change"
                 android:textColor="#787878"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -126,11 +126,11 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="12dp"
             app:dividerColor="#A6A6A6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_home_my_thumbnail"
-            android:layout_marginTop="12dp"/>
+            app:layout_constraintTop_toBottomOf="@id/cv_home_my_thumbnail" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

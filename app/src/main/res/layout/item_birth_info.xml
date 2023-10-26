@@ -100,7 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:text="선물하기"
+                android:text="@string/birth_item_tv_gift"
                 android:textColor="#CC3838"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

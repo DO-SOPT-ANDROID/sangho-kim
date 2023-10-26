@@ -12,7 +12,11 @@ class BirthInfoViewHolder(
         with(binding) {
             ivHomeBirthThumbnail.load(item.thumbnail)
             tvHomeBirthNickname.text = item.nickname
-            tvHomeBirthDescription.text = "오늘 " + item.birthDate
+            tvHomeBirthDescription.text = TODAY + item.birthDate
         }
+    }
+
+    private companion object {
+        const val TODAY = "오늘 "
     }
 }

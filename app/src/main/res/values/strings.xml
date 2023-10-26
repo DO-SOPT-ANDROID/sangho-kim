@@ -40,4 +40,13 @@
     <string name="view_type_error_msg">Unknown View Type : %d</string>
     <string name="adapter_not_initialized_error_msg">Adapter is not initialized</string>
 
+    <string name="fix_tv_title">상태 메세지를 수정해보세요 !</string>
+    <string name="fix_et_hint">바꿀 상태 메세지를 입력해주세요~</string>
+    <string name="fix_btn_submit">입력 완료</string>
+
+    <string name="birth_item_tv_gift">선물하기</string>
+    
+    <string name="my_info_tv_title">술친구 리스트</string>
+    <string name="my_info_btn_change">소개 변경</string>
+
 </resources>    
