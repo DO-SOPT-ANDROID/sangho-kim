@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -27,19 +28,19 @@
         <com.google.android.material.divider.MaterialDivider
             android:layout_width="0dp"
             android:layout_height="1dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_home_title"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_title" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_home_my_thumbnail"
             android:layout_width="60dp"
             android:layout_height="0dp"
+            android:layout_marginVertical="12dp"
             android:layout_marginStart="24dp"
             app:cardCornerRadius="15dp"
-            android:layout_marginVertical="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_home_title">
@@ -57,13 +58,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="김상호"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/tv_home_my_description"
             app:layout_constraintStart_toEndOf="@id/cv_home_my_thumbnail"
             app:layout_constraintTop_toTopOf="@id/cv_home_my_thumbnail"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="김상호" />
 
         <TextView
             android:id="@+id/tv_home_my_description"
