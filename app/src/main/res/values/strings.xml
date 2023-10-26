@@ -36,4 +36,8 @@
     <string name="profile_tv_id_title">ID</string>
     <string name="profile_tv_drink_title">선호 주종</string>
     <string name="profile_btn_delete">회원 탈퇴</string>
+
+    <string name="view_type_error_msg">Unknown View Type : %d</string>
+    <string name="adapter_not_initialized_error_msg">Adapter is not initialized</string>
+
 </resources>    

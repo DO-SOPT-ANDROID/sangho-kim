@@ -6,15 +6,15 @@ import org.sopt.dosopttemplate.util.setOnSingleClickListener
 
 class MyInfoViewHolder(
     val binding: ItemMyInfoBinding,
-    private val itemClick: (UserInfo.MyInfo, Int) -> (Unit),
+    private val itemClick: (UserInfo.MyInfo) -> (Unit),
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(item: UserInfo.MyInfo, position: Int) {
+    fun onBind(item: UserInfo.MyInfo) {
         with(binding) {
             tvHomeMyNickname.text = item.nickname
             tvHomeMyDescription.text = item.description
             btnDescriptionChange.setOnSingleClickListener {
-                itemClick(item, position)
+                itemClick(item)
             }
         }
     }
