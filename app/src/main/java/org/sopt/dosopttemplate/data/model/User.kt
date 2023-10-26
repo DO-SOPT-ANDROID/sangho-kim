@@ -1,6 +1,7 @@
 package org.sopt.dosopttemplate.data.model
 
 import android.os.Parcelable
+import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
 import org.sopt.dosopttemplate.R
 
@@ -11,7 +12,7 @@ data class User(
     val nickname: String = "",
     val drink: String = "",
     val drinkAmount: String? = "",
-    val thumbnail: Int? = R.drawable.ic_launcher_background,
+    @DrawableRes val thumbnail: Int? = R.drawable.ic_launcher_background,
     val description: String? = "",
     val isBirthday: Boolean = false
 ) : Parcelable
