@@ -11,15 +11,11 @@ sealed class UserInfo {
 
     data class FriendInfo(
         val nickname: String,
-        @DrawableRes val thunbmail: Int?,
-        val description: String? = "",
         val drink: String? = "",
-        val drinkAmount: String? = ""
-    ) : UserInfo()
-
-    data class BirthdayInfo(
-        val nickname: String = "",
-        @DrawableRes val thunbmail: Int?,
+        val drinkAmount: String? = "",
+        @DrawableRes val thumbnail: Int?,
+        val description: String? = "",
+        val isBirthday: Boolean = false,
         val birthDate: String? = ""
     ) : UserInfo()
 }

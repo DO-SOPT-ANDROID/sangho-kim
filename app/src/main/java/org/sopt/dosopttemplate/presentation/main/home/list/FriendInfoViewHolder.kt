@@ -12,7 +12,7 @@ class FriendInfoViewHolder(
 
     fun onBind(item: UserInfo.FriendInfo) {
         with(binding) {
-            ivHomeFriendThumbnail.load(item.thunbmail)
+            ivHomeFriendThumbnail.load(item.thumbnail)
             tvHomeFriendNickname.text = item.nickname
             tvHomeFriendDescription.text = item.description
 

@@ -8,9 +8,9 @@ class BirthInfoViewHolder(
     val binding: ItemBirthInfoBinding
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun onBind(item: UserInfo.BirthdayInfo) {
+    fun onBind(item: UserInfo.FriendInfo) {
         with(binding) {
-            ivHomeBirthThumbnail.load(item.thunbmail)
+            ivHomeBirthThumbnail.load(item.thumbnail)
             tvHomeBirthNickname.text = item.nickname
             tvHomeBirthDescription.text = "-  " + item.birthDate
         }

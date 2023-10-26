@@ -71,13 +71,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="전통주 스터디장의 주량은 반병입니다"
-            android:maxLines="1"
-            android:ellipsize="end"
             android:layout_marginEnd="4dp"
-            app:layout_constraintEnd_toStartOf="@id/btn_description_change"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="전통주 스터디장의 주량은 반병입니다"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/cv_home_my_thumbnail"
+            app:layout_constraintEnd_toStartOf="@id/btn_description_change"
             app:layout_constraintStart_toEndOf="@id/cv_home_my_thumbnail"
             app:layout_constraintTop_toBottomOf="@id/tv_home_my_nickname"
             app:layout_constraintVertical_chainStyle="packed" />
@@ -97,8 +97,8 @@
                 android:id="@+id/iv_change_plus"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:padding="2dp"
                 android:layout_marginStart="2dp"
+                android:padding="2dp"
                 android:src="@drawable/ic_plus_gray_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tv_change_description"
@@ -112,7 +112,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:text="소개 변경"
-                android:textSize="11sp"
                 android:textColor="#787878"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -122,6 +121,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="24dp"
+            app:dividerColor="#A6A6A6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cv_home_my_thumbnail"
+            android:layout_marginTop="12dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

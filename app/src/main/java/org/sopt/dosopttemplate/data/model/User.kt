@@ -8,7 +8,8 @@ data class User(
     val id: String,
     val pw: String,
     val nickname: String = "",
-    val drink: String = ""
+    val drink: String = "",
+    val description: String? = ""
 ) : Parcelable
 
 fun emptyUser() = User(id = "", pw = "")
