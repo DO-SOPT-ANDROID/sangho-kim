@@ -1,7 +1,6 @@
 package org.sopt.dosopttemplate.presentation.main.home.list
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +33,7 @@ class HomeAdapter(
             }
 
             else -> throw ClassCastException(
-                parent.context.getString(R.string.view_type_error_msg, viewType,)
+                parent.context.getString(R.string.view_type_error_msg, viewType)
             )
         }
     }
@@ -44,34 +43,26 @@ class HomeAdapter(
             is MyInfoViewHolder -> holder.onBind(itemList[position] as UserInfo.MyInfo)
             is FriendInfoViewHolder -> holder.onBind(itemList[position] as UserInfo.FriendInfo)
             is BirthInfoViewHolder -> holder.onBind(itemList[position] as UserInfo.FriendInfo)
-            else -> Log.d("sangho", "@@@")
         }
-        val layoutParams = holder.itemView.layoutParams as RecyclerView.LayoutParams
-        layoutParams.bottomMargin = if (position == itemList.size) 24 else 0
-        holder.itemView.layoutParams = layoutParams
     }
 
     override fun getItemCount() = itemList.size
 
     override fun getItemViewType(position: Int): Int {
         return when (itemList[position]) {
-            is UserInfo.MyInfo -> {
-                Log.d("sangho", "${itemList[position]}")
-                VIEW_TYPE_MY_INFO
-            }
-
-            is UserInfo.FriendInfo -> {
-                Log.d(
-                    "sangho",
-                    "${itemList[position]} & ${(itemList[position] as UserInfo.FriendInfo).isBirthday}"
-                )
-                if ((itemList[position] as UserInfo.FriendInfo).isBirthday) VIEW_TYPE_BIRTHDAY_INFO else VIEW_TYPE_FRIEND_INFO
-            }
+            is UserInfo.MyInfo -> VIEW_TYPE_MY_INFO
+            is UserInfo.FriendInfo -> if ((itemList[position] as UserInfo.FriendInfo).isBirthday) VIEW_TYPE_BIRTHDAY_INFO else VIEW_TYPE_FRIEND_INFO
         }
     }
 
     fun addList(list: MutableList<UserInfo>) {
         itemList.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun changeMyInfo(userInfo: UserInfo) {
+        itemList.removeAt(0)
+        itemList.add(0, userInfo)
         notifyDataSetChanged()
     }
 

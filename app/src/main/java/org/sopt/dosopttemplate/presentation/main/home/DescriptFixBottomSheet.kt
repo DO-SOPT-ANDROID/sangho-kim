@@ -16,11 +16,13 @@ class DescriptFixBottomSheet :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initSubmitBtnListener()
     }
 
     private fun initSubmitBtnListener() {
         binding.btnFixSubmit.setOnSingleClickListener {
-            
+            viewModel.changeDescriptionToPref(binding.etFix.text.toString())
+            dismiss()
         }
     }
 }

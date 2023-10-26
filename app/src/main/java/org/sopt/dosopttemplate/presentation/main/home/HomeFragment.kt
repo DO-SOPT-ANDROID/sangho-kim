@@ -1,15 +1,17 @@
 package org.sopt.dosopttemplate.presentation.main.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.data.datasource.mock.mockList
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 import org.sopt.dosopttemplate.presentation.main.home.list.HomeAdapter
 import org.sopt.dosopttemplate.util.base.BindingFragment
-import timber.log.Timber
 
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
@@ -24,6 +26,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
 
         initAdapter()
         setListData()
+        observeDescription()
     }
 
     private fun initAdapter() {
@@ -38,6 +41,12 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private fun setListData() {
         adapter.addList(mutableListOf(viewModel.getMyUserInfo()))
         adapter.addList(mockList)
+    }
+
+    private fun observeDescription() {
+        viewModel.myDescription.flowWithLifecycle(viewLifecycleOwner.lifecycle).onEach {
+            if (it.isNotBlank()) adapter.changeMyInfo(viewModel.getMyUserInfo())
+        }.launchIn(viewLifecycleOwner.lifecycleScope)
     }
 
     override fun onDestroyView() {
