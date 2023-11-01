@@ -12,6 +12,7 @@ import org.sopt.dosopttemplate.data.datasource.mock.mockList
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 import org.sopt.dosopttemplate.presentation.main.home.list.HomeAdapter
 import org.sopt.dosopttemplate.util.base.BindingFragment
+import timber.log.Timber
 
 class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home) {
 
@@ -30,10 +31,14 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     }
 
     private fun initAdapter() {
-        _adapter = HomeAdapter(requireContext()) {
-            DescriptFixBottomSheet().show(
-                parentFragmentManager, FIX_BOTTOM_SHEET
-            )
+        runCatching {
+            _adapter = HomeAdapter(requireContext()) {
+                DescriptFixBottomSheet().show(
+                    parentFragmentManager, FIX_BOTTOM_SHEET
+                )
+            }
+        }.onFailure { error ->
+            Timber.e(error)
         }
         binding.rvHome.adapter = adapter
     }
