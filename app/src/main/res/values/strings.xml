@@ -7,14 +7,13 @@
     <string name="login_pw_error">비밀번호가 잘못되었습니다.</string>
     <string name="login_empty_error">회원가입을 진행해주세요.</string>
     <string name="login_success">로그인에 성공했습니다.</string>
-    <string name="login_auto_error">다시 로그인해주세요.</string>
 
     <string name="login_tv_title">Welcome to SOPT</string>
     <string name="login_tv_id_title">ID</string>
     <string name="login_et_id_hint">아이디를 입력해주세요.</string>
     <string name="login_tv_pw_title">PW</string>
     <string name="login_et_pw_hint">비밀번호를 입력해주세요.</string>
-    <string name="lgin_tv_auto_login">자동 로그인</string>
+    <string name="login_tv_auto_login">자동 로그인</string>
     <string name="login_btn_login">로그인</string>
     <string name="login_btn_sign_up">회원가입</string>
 
@@ -33,4 +32,21 @@
     <string name="sign_up_tv_drink_title">선호 주종</string>
     <string name="sign_up_et_drink_hint">선호 주종을 입력해주세요.</string>
     <string name="sign_up_btn_sign_up">회원가입</string>
+
+    <string name="profile_tv_id_title">ID</string>
+    <string name="profile_tv_drink_title">선호 주종</string>
+    <string name="profile_btn_delete">회원 탈퇴</string>
+
+    <string name="view_type_error_msg">Unknown View Type : %d</string>
+    <string name="adapter_not_initialized_error_msg">Adapter is not initialized</string>
+
+    <string name="fix_tv_title">상태 메세지를 수정해보세요 !</string>
+    <string name="fix_et_hint">바꿀 상태 메세지를 입력해주세요~</string>
+    <string name="fix_btn_submit">입력 완료</string>
+
+    <string name="birth_item_tv_gift">선물하기</string>
+    
+    <string name="my_info_tv_title">술친구 리스트</string>
+    <string name="my_info_btn_change">소개 변경</string>
+
 </resources>    

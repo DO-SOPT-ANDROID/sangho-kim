@@ -1,65 +1,34 @@
 package org.sopt.dosopttemplate.presentation.main
 
-import android.content.Intent
-import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
-import org.sopt.dosopttemplate.data.model.User
-import org.sopt.dosopttemplate.data.model.emptyUser
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
-import org.sopt.dosopttemplate.presentation.auth.LoginActivity
+import org.sopt.dosopttemplate.presentation.main.android.AndroidFragment
+import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
+import org.sopt.dosopttemplate.presentation.main.profile.ProfileFragment
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.toast
 import toast
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
-
-    private lateinit var userData: User
 
     private var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        getUserData()
-        setUiText()
-        initDeleteBtnListener()
+        initBnvFirstMenu()
         initOnBackPressedListener()
+        initBnvItemSelectedListener()
     }
 
-    private fun getUserData() {
-        userData = UserSharedPref.getUserFromPref() ?: emptyUser()
-    }
-
-    private fun setUiText() {
-        if (::userData.isInitialized) {
-            with(binding) {
-                tvMainNickname.text = userData.nickname
-                tvMainId.text = userData.id
-                tvMainDrink.text = userData.drink
-            }
-        } else {
-            toast(getString(R.string.login_auto_error))
-            returnToLoginActivity()
-        }
-    }
-
-    private fun initDeleteBtnListener() {
-        binding.btnDelete.setOnSingleClickListener {
-            UserSharedPref.clearUserPref()
-            returnToLoginActivity()
-        }
-    }
-
-    private fun returnToLoginActivity() {
-        Intent(this, LoginActivity::class.java).apply {
-            addFlags(FLAG_ACTIVITY_CLEAR_TASK or FLAG_ACTIVITY_NEW_TASK)
-            startActivity(this)
-        }
-        finish()
+    private fun initBnvFirstMenu() {
+        supportFragmentManager.findFragmentById(R.id.fcv_main) ?: navigateTo<HomeFragment>()
+        binding.bnvMain.selectedItemId = R.id.menu_home
     }
 
     private fun initOnBackPressedListener() {
@@ -74,6 +43,24 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             }
         }
         this.onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+    }
+
+    private fun initBnvItemSelectedListener() {
+        binding.bnvMain.setOnItemSelectedListener { menu ->
+            when (menu.itemId) {
+                R.id.menu_android -> navigateTo<AndroidFragment>()
+                R.id.menu_home -> navigateTo<HomeFragment>()
+                R.id.menu_profile -> navigateTo<ProfileFragment>()
+                else -> return@setOnItemSelectedListener false
+            }
+            true
+        }
+    }
+
+    private inline fun <reified T : Fragment> navigateTo() {
+        supportFragmentManager.commit {
+            replace<T>(R.id.fcv_main, T::class.java.canonicalName)
+        }
     }
 
     companion object {
