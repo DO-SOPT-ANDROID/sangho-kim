@@ -9,6 +9,7 @@ data class User(
     val pw: String,
     val nickname: String = "",
     val drink: String = "",
+    var drinkAmount: String = "",
     var description: String? = ""
 ) : Parcelable
 
