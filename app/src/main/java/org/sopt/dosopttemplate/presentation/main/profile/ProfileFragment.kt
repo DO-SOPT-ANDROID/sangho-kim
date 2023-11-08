@@ -32,6 +32,12 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         }
     }
 
+    private fun initAmountBtnListener() {
+        binding.btnProfileAmount.setOnSingleClickListener {
+
+        }
+    }
+
     private fun returnToLoginActivity() {
         Intent(requireContext(), LoginActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
