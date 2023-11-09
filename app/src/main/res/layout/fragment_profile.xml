@@ -182,7 +182,7 @@
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_profile_amount_title"
-                    tools:text="반병" />
+                    tools:text="0.5병" />
 
                 <TextView
                     android:id="@+id/btn_profile_amount"

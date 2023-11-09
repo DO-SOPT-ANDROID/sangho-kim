@@ -9,86 +9,99 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:background="@drawable/shape_white_fill_10_rect"
-        android:paddingHorizontal="2dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="50dp">
-
-        <TextView
-            android:id="@+id/tv_dialog_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="3dp"
-            android:text="그래서 진짜 주량이 뭔데?"
-            android:textAppearance="?textAppearanceSubtitle1"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_invite_dialog_exit" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cv_dialog_slider"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            app:cardBackgroundColor="#DFDFDF"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_dialog_title">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="여기에 슬라이더" />
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/btn_dialog_confirm"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="60dp"
-            android:layout_marginVertical="40dp"
-            android:background="@drawable/shape_pink_line_12_rect"
-            android:gravity="center"
-            android:paddingVertical="6dp"
-            android:text="믿어줘!"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cv_dialog_slider" />
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/btn_invite_dialog_exit"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:layout_marginBottom="80dp"
+            android:layout_marginHorizontal="30dp"
+            android:background="@drawable/shape_white_fill_10_rect"
+            android:paddingHorizontal="2dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="50dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/iv_invite_dialog_exit"
+            <TextView
+                android:id="@+id/tv_dialog_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_exit"
+                android:layout_marginTop="20dp"
+                android:padding="3dp"
+                android:text="그래서 진짜 주량이 뭔데?"
+                android:textAppearance="?textAppearanceSubtitle1"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_invite_dialog_exit" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_dialog_slider"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:cardBackgroundColor="#DFDFDF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_dialog_title">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="여기에 슬라이더" />
+
+            </androidx.cardview.widget.CardView>
 
             <TextView
+                android:id="@+id/btn_dialog_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="60dp"
+                android:layout_marginVertical="40dp"
+                android:background="@drawable/shape_pink_line_12_rect"
+                android:gravity="center"
+                android:paddingVertical="6dp"
+                android:text="믿어줘!"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cv_dialog_slider" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btn_invite_dialog_exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="닫기"
-                android:textColor="#575757"
-                app:layout_constraintBottom_toBottomOf="@+id/iv_invite_dialog_exit"
-                app:layout_constraintEnd_toStartOf="@id/iv_invite_dialog_exit"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:padding="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/iv_invite_dialog_exit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_exit"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="1dp"
+                    android:paddingBottom="2dp"
+                    android:text="닫기"
+                    android:textColor="#575757"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_invite_dialog_exit"
+                    app:layout_constraintEnd_toStartOf="@id/iv_invite_dialog_exit"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,12 +13,14 @@ import org.sopt.dosopttemplate.util.setOnSingleClickListener
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 
     private val viewModel by activityViewModels<ProfileViewModel>()
+    private var drinkAmountDialog: DrinkAmountDialog? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initUserView()
         initDeleteBtnListener()
+        initAmountBtnListener()
     }
 
     private fun initUserView() {
@@ -34,7 +36,8 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initAmountBtnListener() {
         binding.btnProfileAmount.setOnSingleClickListener {
-
+            drinkAmountDialog = DrinkAmountDialog.newInstance(0)
+            drinkAmountDialog?.show(parentFragmentManager, TAG_DIALOG)
         }
     }
 
@@ -43,5 +46,14 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
             addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(this)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        drinkAmountDialog?.dismiss()
+    }
+
+    private companion object {
+        const val TAG_DIALOG = "DIALOG"
     }
 }
