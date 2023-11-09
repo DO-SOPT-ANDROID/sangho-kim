@@ -35,6 +35,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private fun initAdapter() {
         runCatching {
             _adapter = HomeAdapter(requireContext()) {
+                descriptFixBottomSheet = DescriptFixBottomSheet()
                 descriptFixBottomSheet?.show(
                     parentFragmentManager, FIX_BOTTOM_SHEET
                 )
