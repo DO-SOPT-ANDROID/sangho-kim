@@ -188,7 +188,7 @@
                     android:id="@+id/tv_profile_amount_bottle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=" 병"
+                    android:text="@string/profile_tv_amount_bottle"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="@id/tv_profile_amount"
                     app:layout_constraintStart_toEndOf="@id/tv_profile_amount"

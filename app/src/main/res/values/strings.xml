@@ -50,5 +50,10 @@
     
     <string name="profile_tv_title">술친구 리스트</string>
     <string name="profile_btn_change">소개 변경</string>
+    <string name="profile_tv_amount_bottle">병</string>
+
+    <string name="profile_dialog_tv_title">그래서 진짜 주량이 뭔데?</string>
+    <string name="profile_dialog_tv_btn">믿어줘!</string>
+    <string name="profile_dialog_tv_exit">닫기</string>
 
 </resources>    
