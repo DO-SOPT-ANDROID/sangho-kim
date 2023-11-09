@@ -4,6 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentProfileBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
@@ -19,12 +23,19 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
         super.onViewCreated(view, savedInstanceState)
 
         initUserView()
+        observeDrinkAmount()
         initDeleteBtnListener()
         initAmountBtnListener()
     }
 
     private fun initUserView() {
         binding.user = viewModel.getUserData()
+    }
+
+    private fun observeDrinkAmount() {
+        viewModel.drinkAmount.flowWithLifecycle(lifecycle).onEach { amount ->
+            binding.tvProfileAmount.text = amount.toString()
+        }.launchIn(lifecycleScope)
     }
 
     private fun initDeleteBtnListener() {
@@ -36,7 +47,7 @@ class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragmen
 
     private fun initAmountBtnListener() {
         binding.btnProfileAmount.setOnSingleClickListener {
-            drinkAmountDialog = DrinkAmountDialog.newInstance(0)
+            drinkAmountDialog = DrinkAmountDialog.newInstance(viewModel.getUserData().drinkAmount)
             drinkAmountDialog?.show(parentFragmentManager, TAG_DIALOG)
         }
     }

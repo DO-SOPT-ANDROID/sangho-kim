@@ -48,7 +48,7 @@
 
     <string name="birth_item_tv_gift">선물하기</string>
     
-    <string name="my_info_tv_title">술친구 리스트</string>
-    <string name="my_info_btn_change">소개 변경</string>
+    <string name="profile_tv_title">술친구 리스트</string>
+    <string name="profile_btn_change">소개 변경</string>
 
 </resources>    

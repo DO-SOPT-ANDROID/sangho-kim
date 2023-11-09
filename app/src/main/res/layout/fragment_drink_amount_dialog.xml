@@ -50,11 +50,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_dialog_title">
 
-                <TextView
+                <com.google.android.material.slider.Slider
+                    android:id="@+id/slider_drink_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="여기에 슬라이더" />
+                    android:layout_gravity="center"
+                    android:valueFrom="0.0"
+                    android:valueTo="100.0"
+                    android:value="0.0"
+                    app:trackColor="@color/material_dynamic_neutral70"
+                    android:layout_marginHorizontal="20dp"
+                    app:labelStyle="@style/Widget.Material3.Tooltip"/>
 
             </androidx.cardview.widget.CardView>
 

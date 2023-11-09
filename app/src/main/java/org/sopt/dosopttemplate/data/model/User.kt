@@ -9,7 +9,7 @@ data class User(
     val pw: String,
     val nickname: String = "",
     val drink: String = "",
-    var drinkAmount: String = "",
+    var drinkAmount: Float = 0.0F,
     var description: String? = ""
 ) : Parcelable
 
