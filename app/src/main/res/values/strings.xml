@@ -35,7 +35,9 @@
 
     <string name="profile_tv_id_title">ID</string>
     <string name="profile_tv_drink_title">선호 주종</string>
-    <string name="profile_btn_delete">회원 탈퇴</string>
+    <string name="profile_tv_amount_title">주량</string>
+    <string name="profile_btn_amount">내 진짜 주량 찾기</string>
+    <string name="profile_btn_delete">그만 마실래잉</string>
 
     <string name="view_type_error_msg">Unknown View Type : %d</string>
     <string name="adapter_not_initialized_error_msg">Adapter is not initialized</string>
@@ -46,7 +48,12 @@
 
     <string name="birth_item_tv_gift">선물하기</string>
     
-    <string name="my_info_tv_title">술친구 리스트</string>
-    <string name="my_info_btn_change">소개 변경</string>
+    <string name="profile_tv_title">술친구 리스트</string>
+    <string name="profile_btn_change">소개 변경</string>
+    <string name="profile_tv_amount_bottle">병</string>
+
+    <string name="profile_dialog_tv_title">그래서 진짜 주량이 뭔데?</string>
+    <string name="profile_dialog_tv_btn">믿어줘!</string>
+    <string name="profile_dialog_tv_exit">닫기</string>
 
 </resources>    

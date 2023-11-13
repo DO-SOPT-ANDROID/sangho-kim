@@ -20,6 +20,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private val adapter
         get() = requireNotNull(_adapter) { getString(R.string.adapter_not_initialized_error_msg) }
 
+    private var descriptFixBottomSheet: DescriptFixBottomSheet? = null
+
     private val viewModel by activityViewModels<HomeViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,7 +35,8 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     private fun initAdapter() {
         runCatching {
             _adapter = HomeAdapter(requireContext()) {
-                DescriptFixBottomSheet().show(
+                descriptFixBottomSheet = DescriptFixBottomSheet()
+                descriptFixBottomSheet?.show(
                     parentFragmentManager, FIX_BOTTOM_SHEET
                 )
             }
@@ -57,6 +60,7 @@ class HomeFragment : BindingFragment<FragmentHomeBinding>(R.layout.fragment_home
     override fun onDestroyView() {
         super.onDestroyView()
         _adapter = null
+        descriptFixBottomSheet?.dismiss()
     }
 
     private companion object {
