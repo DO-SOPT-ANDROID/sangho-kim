@@ -9,6 +9,8 @@
     <string name="login_pw_error">비밀번호가 잘못되었습니다.</string>
     <string name="login_empty_error">회원가입을 진행해주세요.</string>
     <string name="login_success">로그인에 성공했습니다.</string>
+    <string name="login_failure">아이디와 비밀번호를 다시 확인해주세요</string>
+    <string name="login_success_from_server"> %d 유저로 로그인에 성공했습니다.</string>
 
     <string name="login_tv_title">Welcome to SOPT</string>
     <string name="login_tv_id_title">ID</string>
@@ -23,6 +25,7 @@
     <string name="sign_in_pw_error">비밀번호의 길이를 확인해주세요.</string>
     <string name="sign_in_empty_error">모든 값을 입력해주세요.</string>
     <string name="sign_in_success">회원가입에 성공했습니다.</string>
+    <string name="sign_in_failure">이미 존재하는 아이디입니다.</string>
 
     <string name="sign_up_tv_title">회원가입</string>
     <string name="sign_up_tv_id_title">ID</string>

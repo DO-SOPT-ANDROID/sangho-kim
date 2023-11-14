@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.data.datasource.service
+package org.sopt.dosopttemplate.data.service
 
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import retrofit2.Call

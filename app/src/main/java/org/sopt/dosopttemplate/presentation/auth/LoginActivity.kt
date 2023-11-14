@@ -13,8 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
+import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.presentation.main.MainActivity
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.getParcelable
@@ -42,7 +42,8 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
         initSignUpBtnListener()
         initLoginBtnListener()
         initOnBackPressedListener()
-        observeLoginState()
+        observeSignedUserLoginState()
+        observeServerUserLoginState()
     }
 
     private fun initSignUpActivityLauncher() {
@@ -73,12 +74,16 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                     pw = etLoginPw.text.toString().trim(),
                 )
             })
-            viewModel.checkLoginAvailable()
+            if (viewModel.isUserSigned()) {
+                viewModel.checkSignedUserAvailable()
+            } else {
+                viewModel.checkServerUserAvailable()
+            }
         }
     }
 
-    private fun observeLoginState() {
-        viewModel.checkLoginState.flowWithLifecycle(lifecycle).onEach { state ->
+    private fun observeSignedUserLoginState() {
+        viewModel.checkSignedUserState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is AuthState.IdError -> snackBar(binding.root) { getString(R.string.login_id_error) }
 
@@ -88,11 +93,31 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
                 is AuthState.Success -> {
                     toast(getString(R.string.login_success))
-                    if (binding.cbAutoLogin.isChecked) viewModel.setAutoLogin()
+                    if (binding.cbAutoLogin.isChecked) viewModel.setAutoLogin(viewModel.getSignedUser())
                     startMainActivity()
                 }
+
+                else -> return@onEach
             }
         }.launchIn(lifecycleScope)
+    }
+
+    private fun observeServerUserLoginState() {
+        viewModel.checkServerUserState.observe(this) { state ->
+            when (state) {
+                is ServerState.Success -> {
+                    toast(getString(R.string.login_success_from_server, state.data.uuid))
+                    if (binding.cbAutoLogin.isChecked) viewModel.setAutoLogin(state.data)
+                    startMainActivity()
+                }
+
+                is ServerState.Failure -> toast(getString(R.string.login_failure))
+
+                is ServerState.ServerError -> toast(getString(R.string.server_error))
+
+                else -> return@observe
+            }
+        }
     }
 
     private fun startMainActivity() {

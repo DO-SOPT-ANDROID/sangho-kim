@@ -7,8 +7,8 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
+import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.setOnSingleClickListener
@@ -58,19 +58,25 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     }
 
     private fun observeSignUpResult() {
-        viewModel.signUpResult.observe(this) {result ->
-            if (result) {
-                toast(getString(R.string.sign_in_success))
-                returnToLoginActivity()
-            } else {
-                toast(getString(R.string.server_error))
+        viewModel.signUpState.observe(this) { state ->
+            when (state) {
+                is ServerState.Success -> {
+                    toast(getString(R.string.sign_in_success))
+                    returnToLoginActivity(state.data)
+                }
+
+                is ServerState.Failure -> toast(getString(R.string.sign_in_failure))
+
+                is ServerState.ServerError -> toast(getString(R.string.server_error))
+
+                else -> return@observe
             }
         }
     }
 
-    private fun returnToLoginActivity() {
+    private fun returnToLoginActivity(user: User) {
         intent.apply {
-            putExtra(EXTRA_USER, viewModel.getEditedUser())
+            putExtra(EXTRA_USER, user)
             setResult(RESULT_OK, this)
         }
         finish()

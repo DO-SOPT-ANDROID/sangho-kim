@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
+import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.domain.entity.emptyUser
-import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.util.checkLength
 import retrofit2.Call
 import retrofit2.Response
@@ -21,16 +21,14 @@ class SignUpViewModel : ViewModel() {
     val checkSignUpState: SharedFlow<AuthState>
         get() = _checkSignUpState
 
-    private val _signUpResult: MutableLiveData<Boolean> = MutableLiveData()
-    val signUpResult: LiveData<Boolean> = _signUpResult
+    private val _signUpState: MutableLiveData<ServerState<User>> = MutableLiveData(ServerState.Empty)
+    val signUpState: LiveData<ServerState<User>> = _signUpState
 
     private var user = emptyUser()
 
     fun setEditedUser(editedUser: User?) {
         user = editedUser ?: return
     }
-
-    fun getEditedUser() = user
 
     fun checkSignUpAvailable() {
         viewModelScope.launch {
@@ -50,21 +48,25 @@ class SignUpViewModel : ViewModel() {
     fun postSignUpToServer() {
         ServicePool.authService.postSignUp(
             SignUpRequestDto(
-            username = user.id,
-            password = user.pw,
-            nickname = user.nickname
-        )
+                username = user.id,
+                password = user.pw,
+                nickname = user.nickname
+            )
         )
             .enqueue(object : retrofit2.Callback<Unit> {
                 override fun onResponse(
                     call: Call<Unit>,
                     response: Response<Unit>,
                 ) {
-                    _signUpResult.value = response.isSuccessful
+                    if (response.isSuccessful) {
+                        _signUpState.value = ServerState.Success(user)
+                    } else {
+                        _signUpState.value = ServerState.Failure(response.message())
+                    }
                 }
 
                 override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    _signUpResult.value = false
+                    _signUpState.value = ServerState.ServerError
                 }
             })
     }
