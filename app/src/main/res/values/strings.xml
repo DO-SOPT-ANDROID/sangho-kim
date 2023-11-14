@@ -3,6 +3,8 @@
 
     <string name="back_btn_pressed">버튼을 한번 더 누르면 종료됩니다.</string>
 
+    <string name="server_error">서버 통신에 실패했습니다.</string>
+
     <string name="login_id_error">아이디가 잘못되었습니다.</string>
     <string name="login_pw_error">비밀번호가 잘못되었습니다.</string>
     <string name="login_empty_error">회원가입을 진행해주세요.</string>

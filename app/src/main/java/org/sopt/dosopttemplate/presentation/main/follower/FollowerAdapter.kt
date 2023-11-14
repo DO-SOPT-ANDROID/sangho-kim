@@ -20,6 +20,12 @@ class FollowerAdapter :
         holder.onBind(getItem(position))
     }
 
+    fun addList(newItems: List<FollowerResponseDto.User>) {
+        val currentItems = currentList.toMutableList()
+        currentItems.addAll(newItems)
+        submitList(currentItems)
+    }
+
     companion object {
         private val diffUtil = ItemDiffCallback<FollowerResponseDto.User>(
             onItemsTheSame = { old, new -> old.id == new.id },
