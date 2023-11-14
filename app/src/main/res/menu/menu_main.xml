@@ -3,13 +3,17 @@
     <item
         android:id="@+id/menu_android"
         android:icon="@drawable/ic_android_white_24"
-        android:title="DO ANDRO:D" />
+        android:title="@string/menu_android" />
     <item
         android:id="@+id/menu_home"
         android:icon="@drawable/ic_home_white_24"
-        android:title="HOME" />
+        android:title="@string/menu_home" />
+    <item
+        android:id="@+id/menu_follower"
+        android:icon="@drawable/ic_friend_white_24"
+        android:title="@string/menu_follower" />
     <item
         android:id="@+id/menu_profile"
         android:icon="@drawable/ic_profile_white_24"
-        android:title="PROFILE" />
+        android:title="@string/menu_profile" />
 </menu>

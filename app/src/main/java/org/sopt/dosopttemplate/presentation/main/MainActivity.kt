@@ -8,6 +8,7 @@ import androidx.fragment.app.replace
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivityMainBinding
 import org.sopt.dosopttemplate.presentation.main.android.AndroidFragment
+import org.sopt.dosopttemplate.presentation.main.follower.FollowerFragment
 import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
 import org.sopt.dosopttemplate.presentation.main.profile.ProfileFragment
 import org.sopt.dosopttemplate.util.base.BindingActivity
@@ -50,6 +51,7 @@ class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main
             when (menu.itemId) {
                 R.id.menu_android -> navigateTo<AndroidFragment>()
                 R.id.menu_home -> navigateTo<HomeFragment>()
+                R.id.menu_follower -> navigateTo<FollowerFragment>()
                 R.id.menu_profile -> navigateTo<ProfileFragment>()
                 else -> return@setOnItemSelectedListener false
             }

@@ -56,4 +56,9 @@
     <string name="profile_dialog_tv_btn">믿어줘!</string>
     <string name="profile_dialog_tv_exit">닫기</string>
 
+    <string name="menu_android">DO ANDRO:D</string>
+    <string name="menu_home">HOME</string>
+    <string name="menu_follower">FOLLOWER</string>
+    <string name="menu_profile">PROFILE</string>
+
 </resources>    
