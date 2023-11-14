@@ -1,10 +1,10 @@
-package org.sopt.dosopttemplate.data.datasource.local
+package org.sopt.dosopttemplate.data.local
 
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import org.sopt.dosopttemplate.data.model.User
+import org.sopt.dosopttemplate.domain.entity.User
 
 object UserSharedPref {
     private lateinit var userPref: SharedPreferences

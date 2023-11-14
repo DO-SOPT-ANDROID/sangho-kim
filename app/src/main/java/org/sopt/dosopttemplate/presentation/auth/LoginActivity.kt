@@ -13,7 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.model.User
+import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.presentation.main.MainActivity
 import org.sopt.dosopttemplate.util.base.BindingActivity

@@ -1,8 +1,8 @@
-package org.sopt.dosopttemplate.data.datasource.service
+package org.sopt.dosopttemplate.data.service
 
-import org.sopt.dosopttemplate.data.datasource.model.request.LoginRequestDto
-import org.sopt.dosopttemplate.data.datasource.model.request.SignUpRequestDto
-import org.sopt.dosopttemplate.data.datasource.model.response.LoginResponseDto
+import org.sopt.dosopttemplate.data.model.request.LoginRequestDto
+import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
+import org.sopt.dosopttemplate.data.model.response.LoginResponseDto
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

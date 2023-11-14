@@ -2,7 +2,7 @@ package org.sopt.dosopttemplate
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
+import org.sopt.dosopttemplate.data.local.UserSharedPref
 import timber.log.Timber
 
 class MyApp : Application() {

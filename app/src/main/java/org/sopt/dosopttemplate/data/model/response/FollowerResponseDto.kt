@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.data.datasource.model.response
+package org.sopt.dosopttemplate.data.model.response
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

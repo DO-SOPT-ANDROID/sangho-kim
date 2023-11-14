@@ -3,7 +3,7 @@ package org.sopt.dosopttemplate.presentation.main.follower
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import coil.transform.RoundedCornersTransformation
-import org.sopt.dosopttemplate.data.datasource.model.response.FollowerResponseDto
+import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.databinding.ItemFollowerBinding
 
 class FollowerViewHolder(val binding: ItemFollowerBinding) :

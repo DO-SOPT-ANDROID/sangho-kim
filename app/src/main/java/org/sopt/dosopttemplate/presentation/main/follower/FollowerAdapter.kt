@@ -3,7 +3,7 @@ package org.sopt.dosopttemplate.presentation.main.follower
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
-import org.sopt.dosopttemplate.data.datasource.model.response.FollowerResponseDto
+import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.databinding.ItemFollowerBinding
 import org.sopt.dosopttemplate.util.ItemDiffCallback
 

@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.data.datasource.mock
+package org.sopt.dosopttemplate.data.mock
 
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.presentation.main.home.list.UserInfo

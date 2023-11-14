@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="org.sopt.dosopttemplate.data.model.User" />
+            type="org.sopt.dosopttemplate.domain.entity.User" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

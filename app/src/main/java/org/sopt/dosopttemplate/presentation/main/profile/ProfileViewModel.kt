@@ -3,8 +3,8 @@ package org.sopt.dosopttemplate.presentation.main.profile
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
-import org.sopt.dosopttemplate.data.model.emptyUser
+import org.sopt.dosopttemplate.data.local.UserSharedPref
+import org.sopt.dosopttemplate.domain.entity.emptyUser
 
 class ProfileViewModel : ViewModel() {
 

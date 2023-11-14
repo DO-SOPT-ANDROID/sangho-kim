@@ -7,10 +7,9 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
-import org.sopt.dosopttemplate.data.datasource.model.request.SignUpRequestDto
-import org.sopt.dosopttemplate.data.datasource.model.response.FollowerResponseDto
-import org.sopt.dosopttemplate.data.model.User
-import org.sopt.dosopttemplate.data.model.emptyUser
+import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
+import org.sopt.dosopttemplate.domain.entity.User
+import org.sopt.dosopttemplate.domain.entity.emptyUser
 import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.util.checkLength
 import retrofit2.Call
@@ -49,11 +48,13 @@ class SignUpViewModel : ViewModel() {
     }
 
     fun postSignUpToServer() {
-        ServicePool.authService.postSignUp(SignUpRequestDto(
+        ServicePool.authService.postSignUp(
+            SignUpRequestDto(
             username = user.id,
             password = user.pw,
             nickname = user.nickname
-        ))
+        )
+        )
             .enqueue(object : retrofit2.Callback<Unit> {
                 override fun onResponse(
                     call: Call<Unit>,

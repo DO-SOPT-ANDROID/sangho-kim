@@ -8,7 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
-import org.sopt.dosopttemplate.data.datasource.mock.mockList
+import org.sopt.dosopttemplate.data.mock.mockList
 import org.sopt.dosopttemplate.databinding.FragmentHomeBinding
 import org.sopt.dosopttemplate.presentation.main.home.list.HomeAdapter
 import org.sopt.dosopttemplate.util.base.BindingFragment

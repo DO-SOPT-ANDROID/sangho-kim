@@ -3,7 +3,7 @@ package org.sopt.dosopttemplate.presentation.main.follower
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.sopt.dosopttemplate.data.datasource.model.response.FollowerResponseDto
+import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.di.ServicePool.followerService
 import retrofit2.Call
 import retrofit2.Response

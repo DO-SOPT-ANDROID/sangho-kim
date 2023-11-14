@@ -5,10 +5,10 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
-import org.sopt.dosopttemplate.data.datasource.local.UserSharedPref
-import org.sopt.dosopttemplate.data.model.User
-import org.sopt.dosopttemplate.data.model.emptyUser
-import org.sopt.dosopttemplate.data.model.isUserEmpty
+import org.sopt.dosopttemplate.data.local.UserSharedPref
+import org.sopt.dosopttemplate.domain.entity.User
+import org.sopt.dosopttemplate.domain.entity.emptyUser
+import org.sopt.dosopttemplate.domain.entity.isUserEmpty
 
 class LoginViewModel : ViewModel() {
 
