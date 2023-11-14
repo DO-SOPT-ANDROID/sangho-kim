@@ -7,9 +7,7 @@ sealed interface ServerState<out T> {
         val data: T,
     ) : ServerState<T>
 
-    data class Failure(
-        val msg: String,
-    ) : ServerState<Nothing>
+    object Failure : ServerState<Nothing>
 
     object ServerError : ServerState<Nothing>
 }

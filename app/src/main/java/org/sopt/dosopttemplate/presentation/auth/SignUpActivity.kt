@@ -50,9 +50,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
                 is AuthState.EmptyError -> snackBar(binding.root) { getString(R.string.sign_in_empty_error) }
 
-                is AuthState.Success -> {
-                    viewModel.postSignUpToServer()
-                }
+                is AuthState.Success -> viewModel.postSignUpToServer()
             }
         }.launchIn(lifecycleScope)
     }
@@ -69,7 +67,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
                 is ServerState.ServerError -> toast(getString(R.string.server_error))
 
-                else -> return@observe
+                is ServerState.Empty -> return@observe
             }
         }
     }

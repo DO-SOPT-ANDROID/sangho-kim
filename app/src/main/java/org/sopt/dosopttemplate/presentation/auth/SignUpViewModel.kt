@@ -61,7 +61,7 @@ class SignUpViewModel : ViewModel() {
                     if (response.isSuccessful) {
                         _signUpState.value = ServerState.Success(user)
                     } else {
-                        _signUpState.value = ServerState.Failure(response.message())
+                        _signUpState.value = ServerState.Failure
                     }
                 }
 

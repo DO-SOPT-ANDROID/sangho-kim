@@ -96,8 +96,6 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                     if (binding.cbAutoLogin.isChecked) viewModel.setAutoLogin(viewModel.getSignedUser())
                     startMainActivity()
                 }
-
-                else -> return@onEach
             }
         }.launchIn(lifecycleScope)
     }
@@ -115,7 +113,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
                 is ServerState.ServerError -> toast(getString(R.string.server_error))
 
-                else -> return@observe
+                is ServerState.Empty -> return@observe
             }
         }
     }

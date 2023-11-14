@@ -77,7 +77,7 @@ class LoginViewModel : ViewModel() {
                         )
                     )
                 } else {
-                    _checkServerUserState.value = ServerState.Failure(response.message())
+                    _checkServerUserState.value = ServerState.Failure
                 }
             }
 
