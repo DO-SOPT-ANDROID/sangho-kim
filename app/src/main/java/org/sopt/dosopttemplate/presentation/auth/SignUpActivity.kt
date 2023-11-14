@@ -12,6 +12,7 @@ import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.toast
 import snackBar
 import toast
 
@@ -23,7 +24,8 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         super.onCreate(savedInstanceState)
 
         initSignUpBtnListener()
-        observeSignUpState()
+        observeSignUpAvailable()
+        observeSignUpResult()
     }
 
     private fun initSignUpBtnListener() {
@@ -40,7 +42,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
     }
 
-    private fun observeSignUpState() {
+    private fun observeSignUpAvailable() {
         viewModel.checkSignUpState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is AuthState.IdError -> snackBar(binding.root) { getString(R.string.sign_in_id_error) }
@@ -50,11 +52,21 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
                 is AuthState.EmptyError -> snackBar(binding.root) { getString(R.string.sign_in_empty_error) }
 
                 is AuthState.Success -> {
-                    toast(getString(R.string.sign_in_success))
-                    returnToLoginActivity()
+                    viewModel.postSignUpToServer()
                 }
             }
         }.launchIn(lifecycleScope)
+    }
+
+    private fun observeSignUpResult() {
+        viewModel.signUpResult.observe(this) {result ->
+            if (result) {
+                toast(getString(R.string.sign_in_success))
+                returnToLoginActivity()
+            } else {
+                toast(getString(R.string.server_error))
+            }
+        }
     }
 
     private fun returnToLoginActivity() {
