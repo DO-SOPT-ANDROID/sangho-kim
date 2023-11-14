@@ -34,9 +34,9 @@ class FollowerFragment : BindingFragment<FragmentFollowerBinding>(R.layout.fragm
     }
 
     private fun observeFollowerListState() {
-        viewModel.followerResult.observe(viewLifecycleOwner) {
-            if (it != null) {
-                adapter.submitList(it)
+        viewModel.followerResult.observe(viewLifecycleOwner) { result ->
+            if (result != null) {
+                adapter.submitList(result)
             } else {
                 toast(getString(R.string.server_error))
             }

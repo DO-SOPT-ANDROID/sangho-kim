@@ -10,8 +10,7 @@ import retrofit2.Response
 
 class FollowerViewModel : ViewModel() {
 
-    private val _followerResult: MutableLiveData<List<FollowerResponseDto.User>?> =
-        MutableLiveData()
+    private val _followerResult: MutableLiveData<List<FollowerResponseDto.User>?> = MutableLiveData()
     val followerResult: LiveData<List<FollowerResponseDto.User>?> = _followerResult
 
     fun getListFromServer(page: Int) {
