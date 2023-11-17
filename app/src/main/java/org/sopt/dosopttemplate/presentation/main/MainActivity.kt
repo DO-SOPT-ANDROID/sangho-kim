@@ -12,8 +12,7 @@ import org.sopt.dosopttemplate.presentation.main.follower.FollowerFragment
 import org.sopt.dosopttemplate.presentation.main.home.HomeFragment
 import org.sopt.dosopttemplate.presentation.main.profile.ProfileFragment
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.toast
-import toast
+import org.sopt.dosopttemplate.util.extension.toast
 
 class MainActivity : BindingActivity<ActivityMainBinding>(R.layout.activity_main) {
 

@@ -7,7 +7,7 @@ import androidx.fragment.app.activityViewModels
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentDrinkAmountDialogBinding
 import org.sopt.dosopttemplate.util.base.BindingDialogFragment
-import org.sopt.dosopttemplate.util.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.extension.setOnSingleClickListener
 import kotlin.math.roundToInt
 
 class DrinkAmountDialog :

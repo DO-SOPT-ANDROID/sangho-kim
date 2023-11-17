@@ -17,10 +17,10 @@ import org.sopt.dosopttemplate.databinding.ActivityLoginBinding
 import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.presentation.main.MainActivity
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.getParcelable
-import org.sopt.dosopttemplate.util.setOnSingleClickListener
-import snackBar
-import toast
+import org.sopt.dosopttemplate.util.extension.getParcelable
+import org.sopt.dosopttemplate.util.extension.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.extension.snackBar
+import org.sopt.dosopttemplate.util.extension.toast
 
 class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_login) {
 

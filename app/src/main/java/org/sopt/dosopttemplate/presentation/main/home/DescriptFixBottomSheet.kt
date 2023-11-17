@@ -6,7 +6,7 @@ import androidx.fragment.app.activityViewModels
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentDescriptFixBinding
 import org.sopt.dosopttemplate.util.base.BindingBottomSheetFragment
-import org.sopt.dosopttemplate.util.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.extension.setOnSingleClickListener
 
 class DescriptFixBottomSheet :
     BindingBottomSheetFragment<FragmentDescriptFixBinding>(R.layout.fragment_descript_fix) {

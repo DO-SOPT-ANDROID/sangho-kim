@@ -6,7 +6,7 @@ import androidx.fragment.app.activityViewModels
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentFollowerBinding
 import org.sopt.dosopttemplate.util.base.BindingFragment
-import org.sopt.dosopttemplate.util.toast
+import org.sopt.dosopttemplate.util.extension.toast
 
 class FollowerFragment : BindingFragment<FragmentFollowerBinding>(R.layout.fragment_follower) {
 

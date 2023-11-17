@@ -11,9 +11,9 @@ import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
 import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
-import org.sopt.dosopttemplate.util.setOnSingleClickListener
-import snackBar
-import toast
+import org.sopt.dosopttemplate.util.extension.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.extension.snackBar
+import org.sopt.dosopttemplate.util.extension.toast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
 

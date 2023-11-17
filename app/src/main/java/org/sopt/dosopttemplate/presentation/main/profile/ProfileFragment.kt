@@ -12,7 +12,7 @@ import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentProfileBinding
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity
 import org.sopt.dosopttemplate.util.base.BindingFragment
-import org.sopt.dosopttemplate.util.setOnSingleClickListener
+import org.sopt.dosopttemplate.util.extension.setOnSingleClickListener
 
 class ProfileFragment : BindingFragment<FragmentProfileBinding>(R.layout.fragment_profile) {
 

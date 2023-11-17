@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.databinding.ItemFollowerBinding
-import org.sopt.dosopttemplate.util.ItemDiffCallback
+import org.sopt.dosopttemplate.util.extension.ItemDiffCallback
 
 class FollowerAdapter :
     ListAdapter<FollowerResponseDto.User, FollowerViewHolder>(diffUtil) {

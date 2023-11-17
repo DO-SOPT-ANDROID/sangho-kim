@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.util
+package org.sopt.dosopttemplate.util.extension
 
 import android.content.Intent
 import android.os.Build

@@ -11,7 +11,7 @@ import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
 import org.sopt.dosopttemplate.di.ServicePool
 import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.domain.entity.emptyUser
-import org.sopt.dosopttemplate.util.checkLength
+import org.sopt.dosopttemplate.util.extension.checkLength
 import retrofit2.Call
 import retrofit2.Response
 

@@ -1,4 +1,4 @@
-package org.sopt.dosopttemplate.util
+package org.sopt.dosopttemplate.util.extension
 
 import android.view.View
 import android.widget.Toast
