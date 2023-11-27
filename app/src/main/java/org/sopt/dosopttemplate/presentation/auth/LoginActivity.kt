@@ -74,11 +74,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
                     pw = etLoginPw.text.toString().trim(),
                 )
             })
-            if (viewModel.isUserSigned()) {
-                viewModel.checkSignedUserAvailable()
-            } else {
-                viewModel.checkServerUserAvailable()
-            }
+            viewModel.checkUserAvailable()
         }
     }
 

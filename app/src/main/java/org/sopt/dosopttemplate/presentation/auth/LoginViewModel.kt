@@ -36,13 +36,19 @@ class LoginViewModel : ViewModel() {
 
     fun getSignedUser() = signedUser
 
-    fun isUserSigned() = signedUser != emptyUser()
-
     fun setEditedUser(user: User?) {
         editedUser = user ?: return
     }
 
-    fun checkSignedUserAvailable() {
+    fun checkUserAvailable() {
+        if (signedUser != emptyUser()) {
+            checkSignedUserAvailable()
+        } else {
+            checkServerUserAvailable()
+        }
+    }
+
+    private fun checkSignedUserAvailable() {
         viewModelScope.launch {
             val loginResult = when {
                 isUserEmpty(signedUser) -> AuthState.EmptyError
@@ -57,7 +63,7 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    fun checkServerUserAvailable() {
+    private fun checkServerUserAvailable() {
         authService.postLogin(
             LoginRequestDto(
                 username = editedUser.id, password = editedUser.pw
