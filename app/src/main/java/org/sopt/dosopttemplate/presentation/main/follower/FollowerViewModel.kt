@@ -21,8 +21,12 @@ class FollowerViewModel : ViewModel() {
                     response: Response<FollowerResponseDto>,
                 ) {
                     if (response.isSuccessful) {
-                        val responseData: FollowerResponseDto = response.body() ?: return
-                        _followerResult.value = responseData.data
+                        val responseData: FollowerResponseDto? = response.body()
+                        if (responseData != null) {
+                            _followerResult.value = responseData.data
+                        }else {
+                            _followerResult.value = null
+                        }
                     } else {
                         _followerResult.value = null
                     }

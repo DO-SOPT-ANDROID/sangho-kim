@@ -71,9 +71,9 @@ class LoginViewModel : ViewModel() {
                     _checkServerUserState.value = ServerState.Success(
                         User(
                             uuid = response.body()?.id ?: 0,
-                            id = response.body()?.username ?: "",
+                            id = response.body()?.username.orEmpty(),
                             pw = "",
-                            nickname = response.body()?.nickname ?: ""
+                            nickname = response.body()?.nickname.orEmpty()
                         )
                     )
                 } else {
