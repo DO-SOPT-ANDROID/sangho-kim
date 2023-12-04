@@ -132,6 +132,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="60dp"
+            android:enabled="@{vm.isButtonValid}"
             android:paddingHorizontal="12dp"
             android:text="@string/sign_up_btn_sign_up"
             app:layout_constraintBottom_toBottomOf="parent"
