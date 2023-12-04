@@ -24,6 +24,15 @@ class SignUpViewModel : ViewModel() {
     private val _signUpState: MutableLiveData<ServerState<User>> = MutableLiveData(ServerState.Empty)
     val signUpState: LiveData<ServerState<User>> = _signUpState
 
+    private val _idText: MutableLiveData<String> = MutableLiveData("")
+    val idText: LiveData<String> = _idText
+    private val _pwText: MutableLiveData<String> = MutableLiveData("")
+    val pwText: LiveData<String> = _pwText
+    private val _nameText: MutableLiveData<String> = MutableLiveData("")
+    val nameText: LiveData<String> = _nameText
+    private val _drinkText: MutableLiveData<String> = MutableLiveData("")
+    val drinkText: LiveData<String> = _drinkText
+
     private var user = emptyUser()
 
     fun setEditedUser(editedUser: User?) {

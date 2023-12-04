@@ -4,6 +4,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="org.sopt.dosopttemplate.presentation.auth.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -41,6 +46,7 @@
             android:hint="@string/sign_up_et_id_hint"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:text="@={vm.idText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_id" />
@@ -65,6 +71,7 @@
             android:hint="@string/sign_up_et_pw_hint"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
+            android:text="@={vm.pwText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pw" />
@@ -89,6 +96,7 @@
             android:hint="@string/sign_up_et_nk_hint"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:text="@={vm.nameText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_nickname" />
@@ -113,6 +121,7 @@
             android:hint="@string/sign_up_et_drink_hint"
             android:imeOptions="actionDone"
             android:inputType="text"
+            android:text="@={vm.drinkText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_drink" />
