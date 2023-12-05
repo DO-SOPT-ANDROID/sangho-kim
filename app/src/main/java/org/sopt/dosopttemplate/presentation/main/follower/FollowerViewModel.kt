@@ -3,10 +3,10 @@ package org.sopt.dosopttemplate.presentation.main.follower
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
 import org.sopt.dosopttemplate.di.ServicePool.followerService
-import retrofit2.Call
-import retrofit2.Response
 
 class FollowerViewModel : ViewModel() {
 
@@ -14,27 +14,14 @@ class FollowerViewModel : ViewModel() {
     val followerResult: LiveData<List<FollowerResponseDto.User>?> = _followerResult
 
     fun getListFromServer(page: Int) {
-        followerService.getFollowerList(page)
-            .enqueue(object : retrofit2.Callback<FollowerResponseDto> {
-                override fun onResponse(
-                    call: Call<FollowerResponseDto>,
-                    response: Response<FollowerResponseDto>,
-                ) {
-                    if (response.isSuccessful) {
-                        val responseData: FollowerResponseDto? = response.body()
-                        if (responseData != null) {
-                            _followerResult.value = responseData.data
-                        }else {
-                            _followerResult.value = null
-                        }
-                    } else {
-                        _followerResult.value = null
-                    }
+        viewModelScope.launch {
+            runCatching { followerService.getFollowerList(page) }
+                .onSuccess { response ->
+                    _followerResult.value = response.data
                 }
-
-                override fun onFailure(call: Call<FollowerResponseDto>, t: Throwable) {
+                .onFailure {
                     _followerResult.value = null
                 }
-            })
+        }
     }
 }
