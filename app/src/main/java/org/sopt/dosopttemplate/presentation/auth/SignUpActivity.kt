@@ -17,13 +17,26 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.vm = viewModel
         initSignUpBtnListener()
+        observeSignUpFormat()
         observeSignUpResult()
     }
 
     private fun initSignUpBtnListener() {
         binding.btnSignUp.setOnSingleClickListener {
             viewModel.postSignUpToServer()
+        }
+    }
+
+    private fun observeSignUpFormat() {
+        viewModel.isIdValid.observe(this) { isIdValid ->
+            //binding.layoutSignUpId.error = if (isIdValid) "" else "아이디 형식이 올바르지 않습니다."
+            viewModel.checkButtonValid()
+        }
+        viewModel.isPwValid.observe(this) { isPwValid ->
+            //binding.layoutSignUpPw.error = if (isPwValid) "" else "비밀번호 형식이 올바르지 않습니다."
+            viewModel.checkButtonValid()
         }
     }
 

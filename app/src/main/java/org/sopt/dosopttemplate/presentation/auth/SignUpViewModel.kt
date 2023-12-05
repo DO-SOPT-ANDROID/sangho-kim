@@ -17,23 +17,18 @@ class SignUpViewModel : ViewModel() {
         MutableLiveData(ServerState.Empty)
     val signUpState: LiveData<ServerState<User>> = _signUpState
 
-    private val _idText: MutableLiveData<String> = MutableLiveData("")
-    val idText: LiveData<String> = _idText
-    private val _pwText: MutableLiveData<String> = MutableLiveData("")
-    val pwText: LiveData<String> = _pwText
-    private val _nameText: MutableLiveData<String> = MutableLiveData("")
-    val nameText: LiveData<String> = _nameText
-    private val _drinkText: MutableLiveData<String> = MutableLiveData("")
-    val drinkText: LiveData<String> = _drinkText
+    val idText: MutableLiveData<String> = MutableLiveData("")
+    val pwText: MutableLiveData<String> = MutableLiveData("")
+    val nameText: MutableLiveData<String> = MutableLiveData("")
+    val drinkText: MutableLiveData<String> = MutableLiveData("")
 
-    private val isIdValid: LiveData<Boolean> = _idText.map { ID_REGEX.matcher(it).matches() }
-    private val isPwValid: LiveData<Boolean> = _pwText.map { PW_REGEX.matcher(it).matches() }
+    val isIdValid: LiveData<Boolean> = idText.map { ID_REGEX.matcher(it).matches() }
+    val isPwValid: LiveData<Boolean> = pwText.map { PW_REGEX.matcher(it).matches() }
 
     val isButtonValid: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun checkButtonValid() {
-        isButtonValid.value =
-            (isIdValid.value == true && isPwValid.value == true && !idText.value.isNullOrBlank() && !pwText.value.isNullOrBlank() && !nameText.value.isNullOrBlank() && !drinkText.value.isNullOrBlank())
+        isButtonValid.value = (isIdValid.value == true && isPwValid.value == true)
     }
 
     fun postSignUpToServer() {
