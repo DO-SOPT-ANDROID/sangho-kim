@@ -57,6 +57,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="5dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_id">
@@ -78,7 +81,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:paddingHorizontal="3dp"
             android:text="@string/sign_up_tv_pw_title"
             android:textSize="18sp"
@@ -104,6 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="5dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pw">
@@ -112,11 +117,11 @@
                 android:id="@+id/et_sign_up_pw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="username"
+                android:autofillHints="password"
                 android:hint="@string/sign_up_et_pw_hint"
                 android:imeOptions="actionNext"
-                android:inputType="text"
-                android:text="@={vm.idText}" />
+                android:inputType="textPassword"
+                android:text="@={vm.pwText}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -125,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:paddingHorizontal="3dp"
             android:text="@string/sign_up_tv_nk_title"
             android:textSize="18sp"
@@ -147,11 +152,10 @@
                 android:id="@+id/et_sign_up_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="username"
                 android:hint="@string/sign_up_et_nk_hint"
                 android:imeOptions="actionNext"
                 android:inputType="text"
-                android:text="@={vm.idText}" />
+                android:text="@={vm.nameText}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -182,11 +186,10 @@
                 android:id="@+id/et_sign_up_drink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="username"
                 android:hint="@string/sign_up_et_drink_hint"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:text="@={vm.idText}" />
+                android:text="@={vm.drinkText}" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

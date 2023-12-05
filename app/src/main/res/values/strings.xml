@@ -29,9 +29,9 @@
 
     <string name="sign_up_tv_title">회원가입</string>
     <string name="sign_up_tv_id_title">ID</string>
-    <string name="sign_up_et_id_hint">아이디를 입력해주세요.</string>
+    <string name="sign_up_et_id_hint">영문, 숫자 조합 (6~10자)</string>
     <string name="sign_up_tv_pw_title">PW</string>
-    <string name="sign_up_et_pw_hint">비밀번호를 입력해주세요.</string>
+    <string name="sign_up_et_pw_hint">영문, 숫자, 특수문자 조합 (6~12자)</string>
     <string name="sign_up_tv_nk_title">닉네임</string>
     <string name="sign_up_et_nk_hint">닉네임을 입력해주세요.</string>
     <string name="sign_up_tv_drink_title">선호 주종</string>
@@ -68,5 +68,7 @@
 
     <string name="follower_tv_title">바다 건너 술 친구들</string>
     <string name="sign_up_tv_star">*</string>
+    <string name="sign_up_id_error">아이디 형식이 올바르지 않습니다.</string>
+    <string name="sign_up_pw_error">비밀번호 형식이 올바르지 않습니다.</string>
 
 </resources>    
