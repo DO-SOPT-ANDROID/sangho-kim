@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
-import org.sopt.dosopttemplate.di.ServicePool
+import org.sopt.dosopttemplate.di.ServicePool.authService
 import org.sopt.dosopttemplate.domain.entity.User
-import retrofit2.Call
-import retrofit2.Response
 import java.util.regex.Pattern
 
 class SignUpViewModel : ViewModel() {
@@ -32,36 +32,28 @@ class SignUpViewModel : ViewModel() {
     }
 
     fun postSignUpToServer() {
-        ServicePool.authService.postSignUp(
-            SignUpRequestDto(
-                username = idText.value.orEmpty(),
-                password = pwText.value.orEmpty(),
-                nickname = nameText.value.orEmpty()
-            )
-        )
-            .enqueue(object : retrofit2.Callback<Unit> {
-                override fun onResponse(
-                    call: Call<Unit>,
-                    response: Response<Unit>,
-                ) {
-                    if (response.isSuccessful) {
-                        _signUpState.value = ServerState.Success(
-                            User(
-                                id = idText.value.orEmpty(),
-                                pw = pwText.value.orEmpty(),
-                                nickname = nameText.value.orEmpty(),
-                                drink = drinkText.value.orEmpty()
-                            )
-                        )
-                    } else {
-                        _signUpState.value = ServerState.Failure
-                    }
-                }
-
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    _signUpState.value = ServerState.ServerError
-                }
-            })
+        viewModelScope.launch {
+            runCatching {
+                authService.postSignUp(
+                    SignUpRequestDto(
+                        username = idText.value.orEmpty(),
+                        password = pwText.value.orEmpty(),
+                        nickname = nameText.value.orEmpty()
+                    )
+                )
+            }.onSuccess {
+                _signUpState.value = ServerState.Success(
+                    User(
+                        id = idText.value.orEmpty(),
+                        pw = pwText.value.orEmpty(),
+                        nickname = nameText.value.orEmpty(),
+                        drink = drinkText.value.orEmpty()
+                    )
+                )
+            }.onFailure {
+                _signUpState.value = ServerState.Failure
+            }
+        }
     }
 
     private companion object {
