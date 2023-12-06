@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
 import org.sopt.dosopttemplate.di.ServicePool.authService
@@ -13,9 +15,8 @@ import java.util.regex.Pattern
 
 class SignUpViewModel : ViewModel() {
 
-    private val _signUpState: MutableLiveData<ServerState<User>> =
-        MutableLiveData(ServerState.Empty)
-    val signUpState: LiveData<ServerState<User>> = _signUpState
+    private val _signUpState= MutableStateFlow<ServerState<User>>(ServerState.Empty)
+    val signUpState: StateFlow<ServerState<User>> = _signUpState
 
     val idText: MutableLiveData<String> = MutableLiveData("")
     val pwText: MutableLiveData<String> = MutableLiveData("")

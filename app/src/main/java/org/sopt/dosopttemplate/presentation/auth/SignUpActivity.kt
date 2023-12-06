@@ -2,6 +2,10 @@ package org.sopt.dosopttemplate.presentation.auth
 
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.ActivitySignUpBinding
 import org.sopt.dosopttemplate.domain.entity.User
@@ -19,7 +23,8 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
         binding.vm = viewModel
         initSignUpBtnListener()
-        observeSignUpFormat()
+        observeIdFormat()
+        observePwFormat()
         observeSignUpResult()
     }
 
@@ -29,7 +34,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
         }
     }
 
-    private fun observeSignUpFormat() {
+    private fun observeIdFormat() {
         viewModel.isIdValid.observe(this) { isIdValid ->
             if (!isIdValid && !viewModel.idText.value.isNullOrBlank()) {
                 binding.layoutSignUpId.isErrorEnabled = true
@@ -39,6 +44,9 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
             }
             viewModel.checkButtonValid()
         }
+    }
+
+    private fun observePwFormat() {
         viewModel.isPwValid.observe(this) { isPwValid ->
             if (!isPwValid && !viewModel.idText.value.isNullOrBlank()) {
                 binding.layoutSignUpPw.isErrorEnabled = true
@@ -51,7 +59,7 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     }
 
     private fun observeSignUpResult() {
-        viewModel.signUpState.observe(this) { state ->
+        viewModel.signUpState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is ServerState.Success -> {
                     toast(getString(R.string.sign_in_success))
@@ -62,9 +70,9 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
                 is ServerState.ServerError -> toast(getString(R.string.server_error))
 
-                is ServerState.Empty -> return@observe
+                is ServerState.Empty -> return@onEach
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun returnToLoginActivity(user: User) {
