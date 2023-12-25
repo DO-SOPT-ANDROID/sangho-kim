@@ -1,11 +1,11 @@
 package org.sopt.dosopttemplate.presentation.auth
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.local.UserSharedPref
 import org.sopt.dosopttemplate.data.model.request.LoginRequestDto
@@ -20,9 +20,8 @@ class LoginViewModel : ViewModel() {
     val checkSignedUserState: SharedFlow<AuthState>
         get() = _checkSignedUserState
 
-    private val _checkServerUserState: MutableLiveData<ServerState<User>> =
-        MutableLiveData(ServerState.Empty)
-    val checkServerUserState: LiveData<ServerState<User>> = _checkServerUserState
+    private val _checkServerUserState = MutableStateFlow<ServerState<User>>(ServerState.Empty)
+    val checkServerUserState: StateFlow<ServerState<User>> = _checkServerUserState
 
     private var signedUser = emptyUser()
     private var editedUser = emptyUser()
