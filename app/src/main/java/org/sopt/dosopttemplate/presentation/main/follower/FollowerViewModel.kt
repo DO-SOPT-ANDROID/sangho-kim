@@ -1,40 +1,29 @@
 package org.sopt.dosopttemplate.presentation.main.follower
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import org.sopt.dosopttemplate.data.model.response.FollowerResponseDto.User
 import org.sopt.dosopttemplate.di.ServicePool.followerService
-import retrofit2.Call
-import retrofit2.Response
+import org.sopt.dosopttemplate.util.UiState
 
 class FollowerViewModel : ViewModel() {
 
-    private val _followerResult: MutableLiveData<List<FollowerResponseDto.User>?> = MutableLiveData()
-    val followerResult: LiveData<List<FollowerResponseDto.User>?> = _followerResult
+    private val _followerListState = MutableStateFlow<UiState<List<User>>>(UiState.Empty)
+    val followerListState: StateFlow<UiState<List<User>>> = _followerListState
 
     fun getListFromServer(page: Int) {
-        followerService.getFollowerList(page)
-            .enqueue(object : retrofit2.Callback<FollowerResponseDto> {
-                override fun onResponse(
-                    call: Call<FollowerResponseDto>,
-                    response: Response<FollowerResponseDto>,
-                ) {
-                    if (response.isSuccessful) {
-                        val responseData: FollowerResponseDto? = response.body()
-                        if (responseData != null) {
-                            _followerResult.value = responseData.data
-                        }else {
-                            _followerResult.value = null
-                        }
-                    } else {
-                        _followerResult.value = null
-                    }
-                }
-
-                override fun onFailure(call: Call<FollowerResponseDto>, t: Throwable) {
-                    _followerResult.value = null
-                }
-            })
+        viewModelScope.launch {
+            _followerListState.value = UiState.Loading
+            runCatching {
+                followerService.getFollowerList(page)
+            }.onSuccess { response ->
+                _followerListState.value = UiState.Success(response.data)
+            }.onFailure {
+                _followerListState.value = UiState.Failure(it.message.orEmpty())
+            }
+        }
     }
 }

@@ -97,7 +97,7 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
     }
 
     private fun observeServerUserLoginState() {
-        viewModel.checkServerUserState.observe(this) { state ->
+        viewModel.checkServerUserState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is ServerState.Success -> {
                     toast(getString(R.string.login_success_from_server, state.data.uuid))
@@ -109,9 +109,9 @@ class LoginActivity : BindingActivity<ActivityLoginBinding>(R.layout.activity_lo
 
                 is ServerState.ServerError -> toast(getString(R.string.server_error))
 
-                is ServerState.Empty -> return@observe
+                is ServerState.Empty -> return@onEach
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun startMainActivity() {

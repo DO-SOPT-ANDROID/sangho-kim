@@ -3,8 +3,13 @@ package org.sopt.dosopttemplate.presentation.main.follower
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import org.sopt.dosopttemplate.R
 import org.sopt.dosopttemplate.databinding.FragmentFollowerBinding
+import org.sopt.dosopttemplate.util.UiState
 import org.sopt.dosopttemplate.util.base.BindingFragment
 import org.sopt.dosopttemplate.util.extension.toast
 
@@ -34,13 +39,18 @@ class FollowerFragment : BindingFragment<FragmentFollowerBinding>(R.layout.fragm
     }
 
     private fun observeFollowerListState() {
-        viewModel.followerResult.observe(viewLifecycleOwner) { result ->
-            if (result != null) {
-                adapter.submitList(result)
-            } else {
-                toast(getString(R.string.server_error))
-            }
-        }
+        viewModel.followerListState.flowWithLifecycle(viewLifecycleOwner.lifecycle)
+            .onEach { state ->
+                when (state) {
+                    is UiState.Success -> adapter.submitList(state.data)
+
+                    is UiState.Failure -> toast(getString(R.string.server_error))
+
+                    is UiState.Loading -> return@onEach
+
+                    is UiState.Empty -> return@onEach
+                }
+            }.launchIn(lifecycleScope)
     }
 
     override fun onDestroyView() {
