@@ -12,7 +12,6 @@ import org.sopt.dosopttemplate.domain.entity.User
 import org.sopt.dosopttemplate.presentation.auth.LoginActivity.Companion.EXTRA_USER
 import org.sopt.dosopttemplate.util.base.BindingActivity
 import org.sopt.dosopttemplate.util.extension.setOnSingleClickListener
-import org.sopt.dosopttemplate.util.extension.snackBar
 import org.sopt.dosopttemplate.util.extension.toast
 
 class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_sign_up) {
@@ -22,41 +21,45 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        binding.vm = viewModel
         initSignUpBtnListener()
-        observeSignUpAvailable()
+        observeIdFormat()
+        observePwFormat()
         observeSignUpResult()
     }
 
     private fun initSignUpBtnListener() {
         binding.btnSignUp.setOnSingleClickListener {
-            viewModel.setEditedUser(with(binding) {
-                User(
-                    etSignUpId.text.toString().trim(),
-                    etSignUpPw.text.toString().trim(),
-                    etSignUpNickname.text.toString().trim(),
-                    etSignUpDrink.text.toString().trim(),
-                )
-            })
-            viewModel.checkSignUpAvailable()
+            viewModel.postSignUpToServer()
         }
     }
 
-    private fun observeSignUpAvailable() {
-        viewModel.checkSignUpState.flowWithLifecycle(lifecycle).onEach { state ->
-            when (state) {
-                is AuthState.IdError -> snackBar(binding.root) { getString(R.string.sign_in_id_error) }
-
-                is AuthState.PwError -> snackBar(binding.root) { getString(R.string.sign_in_pw_error) }
-
-                is AuthState.EmptyError -> snackBar(binding.root) { getString(R.string.sign_in_empty_error) }
-
-                is AuthState.Success -> viewModel.postSignUpToServer()
+    private fun observeIdFormat() {
+        viewModel.isIdValid.observe(this) { isIdValid ->
+            if (!isIdValid && !viewModel.idText.value.isNullOrBlank()) {
+                binding.layoutSignUpId.isErrorEnabled = true
+                binding.layoutSignUpId.error = getString(R.string.sign_up_id_error)
+            } else {
+                binding.layoutSignUpId.isErrorEnabled = false
             }
-        }.launchIn(lifecycleScope)
+            viewModel.checkButtonValid()
+        }
+    }
+
+    private fun observePwFormat() {
+        viewModel.isPwValid.observe(this) { isPwValid ->
+            if (!isPwValid && !viewModel.idText.value.isNullOrBlank()) {
+                binding.layoutSignUpPw.isErrorEnabled = true
+                binding.layoutSignUpPw.error = getString(R.string.sign_up_pw_error)
+            } else {
+                binding.layoutSignUpPw.isErrorEnabled = false
+            }
+            viewModel.checkButtonValid()
+        }
     }
 
     private fun observeSignUpResult() {
-        viewModel.signUpState.observe(this) { state ->
+        viewModel.signUpState.flowWithLifecycle(lifecycle).onEach { state ->
             when (state) {
                 is ServerState.Success -> {
                     toast(getString(R.string.sign_in_success))
@@ -67,9 +70,9 @@ class SignUpActivity : BindingActivity<ActivitySignUpBinding>(R.layout.activity_
 
                 is ServerState.ServerError -> toast(getString(R.string.server_error))
 
-                is ServerState.Empty -> return@observe
+                is ServerState.Empty -> return@onEach
             }
-        }
+        }.launchIn(lifecycleScope)
     }
 
     private fun returnToLoginActivity(user: User) {

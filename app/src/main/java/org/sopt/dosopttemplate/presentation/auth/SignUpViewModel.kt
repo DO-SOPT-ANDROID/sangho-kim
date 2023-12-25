@@ -3,71 +3,64 @@ package org.sopt.dosopttemplate.presentation.auth
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import org.sopt.dosopttemplate.data.model.request.SignUpRequestDto
-import org.sopt.dosopttemplate.di.ServicePool
+import org.sopt.dosopttemplate.di.ServicePool.authService
 import org.sopt.dosopttemplate.domain.entity.User
-import org.sopt.dosopttemplate.domain.entity.emptyUser
-import org.sopt.dosopttemplate.util.extension.checkLength
-import retrofit2.Call
-import retrofit2.Response
+import java.util.regex.Pattern
 
 class SignUpViewModel : ViewModel() {
 
-    private val _checkSignUpState = MutableSharedFlow<AuthState>()
-    val checkSignUpState: SharedFlow<AuthState>
-        get() = _checkSignUpState
+    private val _signUpState= MutableStateFlow<ServerState<User>>(ServerState.Empty)
+    val signUpState: StateFlow<ServerState<User>> = _signUpState
 
-    private val _signUpState: MutableLiveData<ServerState<User>> = MutableLiveData(ServerState.Empty)
-    val signUpState: LiveData<ServerState<User>> = _signUpState
+    val idText: MutableLiveData<String> = MutableLiveData("")
+    val pwText: MutableLiveData<String> = MutableLiveData("")
+    val nameText: MutableLiveData<String> = MutableLiveData("")
+    val drinkText: MutableLiveData<String> = MutableLiveData("")
 
-    private var user = emptyUser()
+    val isIdValid: LiveData<Boolean> = idText.map { ID_REGEX.matcher(it).matches() }
+    val isPwValid: LiveData<Boolean> = pwText.map { PW_REGEX.matcher(it).matches() }
 
-    fun setEditedUser(editedUser: User?) {
-        user = editedUser ?: return
-    }
+    val isButtonValid: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    fun checkSignUpAvailable() {
-        viewModelScope.launch {
-            val signUpResult = when {
-                !user.id.checkLength(6, 10) -> AuthState.IdError
-
-                !user.pw.checkLength(8, 12) -> AuthState.PwError
-
-                listOf(user.nickname, user.drink).any { it.isBlank() } -> AuthState.EmptyError
-
-                else -> AuthState.Success
-            }
-            _checkSignUpState.emit(signUpResult)
-        }
+    fun checkButtonValid() {
+        isButtonValid.value = (isIdValid.value == true && isPwValid.value == true)
     }
 
     fun postSignUpToServer() {
-        ServicePool.authService.postSignUp(
-            SignUpRequestDto(
-                username = user.id,
-                password = user.pw,
-                nickname = user.nickname
-            )
-        )
-            .enqueue(object : retrofit2.Callback<Unit> {
-                override fun onResponse(
-                    call: Call<Unit>,
-                    response: Response<Unit>,
-                ) {
-                    if (response.isSuccessful) {
-                        _signUpState.value = ServerState.Success(user)
-                    } else {
-                        _signUpState.value = ServerState.Failure
-                    }
-                }
+        viewModelScope.launch {
+            runCatching {
+                authService.postSignUp(
+                    SignUpRequestDto(
+                        username = idText.value.orEmpty(),
+                        password = pwText.value.orEmpty(),
+                        nickname = nameText.value.orEmpty()
+                    )
+                )
+            }.onSuccess {
+                _signUpState.value = ServerState.Success(
+                    User(
+                        id = idText.value.orEmpty(),
+                        pw = pwText.value.orEmpty(),
+                        nickname = nameText.value.orEmpty(),
+                        drink = drinkText.value.orEmpty()
+                    )
+                )
+            }.onFailure {
+                _signUpState.value = ServerState.Failure
+            }
+        }
+    }
 
-                override fun onFailure(call: Call<Unit>, t: Throwable) {
-                    _signUpState.value = ServerState.ServerError
-                }
-            })
+    private companion object {
+        const val ID_PATTERN = """^(?=.*[a-zA-Z])(?=.*\d).{6,10}$"""
+        val ID_REGEX: Pattern = Pattern.compile(ID_PATTERN)
+        const val PW_PATTERN = """^(?=.*[a-zA-Z])(?=.*\d)(?=.*[~!@#$%^&*()?]).{6,12}$"""
+        val PW_REGEX: Pattern = Pattern.compile(PW_PATTERN)
     }
 }

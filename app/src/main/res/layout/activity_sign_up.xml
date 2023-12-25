@@ -4,6 +4,11 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="vm"
+            type="org.sopt.dosopttemplate.presentation.auth.SignUpViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,96 +31,167 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="30dp"
             android:paddingHorizontal="3dp"
             android:text="@string/sign_up_tv_id_title"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_sign_up_title" />
 
-        <EditText
-            android:id="@+id/et_sign_up_id"
+        <TextView
+            android:id="@+id/tv_sign_up_id_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_tv_star"
+            android:textColor="#FF8823"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sign_up_id"
+            app:layout_constraintStart_toEndOf="@id/tv_sign_up_id"
+            app:layout_constraintTop_toTopOf="@id/tv_sign_up_id" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_sign_up_id"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="@string/sign_up_et_id_hint"
-            android:imeOptions="actionNext"
-            android:inputType="text"
+            android:layout_marginTop="5dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_id" />
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_id">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="username"
+                android:hint="@string/sign_up_et_id_hint"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:text="@={vm.idText}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_sign_up_pw"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="16dp"
             android:paddingHorizontal="3dp"
             android:text="@string/sign_up_tv_pw_title"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_sign_up_id" />
+            app:layout_constraintTop_toBottomOf="@id/layout_sign_up_id" />
 
-        <EditText
-            android:id="@+id/et_sign_up_pw"
+        <TextView
+            android:id="@+id/tv_sign_up_pw_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_tv_star"
+            android:textColor="#FF8823"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_sign_up_pw"
+            app:layout_constraintStart_toEndOf="@id/tv_sign_up_pw"
+            app:layout_constraintTop_toTopOf="@id/tv_sign_up_pw" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_sign_up_pw"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="@string/sign_up_et_pw_hint"
-            android:imeOptions="actionNext"
-            android:inputType="textPassword"
+            android:layout_marginTop="5dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="12"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pw" />
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_pw">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="password"
+                android:hint="@string/sign_up_et_pw_hint"
+                android:imeOptions="actionNext"
+                android:inputType="textPassword"
+                android:text="@={vm.pwText}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_sign_up_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="16dp"
             android:paddingHorizontal="3dp"
             android:text="@string/sign_up_tv_nk_title"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_sign_up_pw" />
+            app:layout_constraintTop_toBottomOf="@id/layout_sign_up_pw" />
 
-        <EditText
-            android:id="@+id/et_sign_up_nickname"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_sign_up_nickname"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="@string/sign_up_et_nk_hint"
-            android:imeOptions="actionNext"
-            android:inputType="text"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_nickname" />
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_nickname">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_nickname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sign_up_et_nk_hint"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:text="@={vm.nameText}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/tv_sign_up_drink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="36dp"
             android:paddingHorizontal="3dp"
             android:text="@string/sign_up_tv_drink_title"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/et_sign_up_nickname" />
+            app:layout_constraintTop_toBottomOf="@id/layout_sign_up_nickname" />
 
-        <EditText
-            android:id="@+id/et_sign_up_drink"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_sign_up_drink"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
-            android:hint="@string/sign_up_et_drink_hint"
-            android:imeOptions="actionDone"
-            android:inputType="text"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_drink" />
+            app:layout_constraintTop_toBottomOf="@id/tv_sign_up_drink">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_sign_up_drink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/sign_up_et_drink_hint"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:text="@={vm.drinkText}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_sign_up"
@@ -123,7 +199,9 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="30dp"
             android:layout_marginBottom="60dp"
+            android:enabled="@{vm.isButtonValid}"
             android:paddingHorizontal="12dp"
+            android:paddingVertical="12dp"
             android:text="@string/sign_up_btn_sign_up"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
